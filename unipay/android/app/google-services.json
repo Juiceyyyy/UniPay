@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "997477711833",
+    "project_id": "unipay-29a73",
+    "storage_bucket": "unipay-29a73.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997477711833:android:feb6ca1ca5217294bfe3c8",
+        "android_client_info": {
+          "package_name": "com.example.unipay"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCS8M0bOXfys1A0V1RbogMYibZoEU4rSQ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
