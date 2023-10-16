@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'login_page.dart'; // Importing the login_page.dart file
+import 'home_page.dart';
 import 'registration_page.dart'; // Importing the registration_page.dart file
 
 void main() => runApp(MyApp());
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/login': (context) => LoginPage(), // Set LoginPage as the route named '/login'
         '/registration': (context) => RegistrationPage(), // Set RegistrationPage as the route named '/registration'
+        '/homepage': (context) => HomePage(),
       },
     );
   }

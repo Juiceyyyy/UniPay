@@ -1,6 +1,7 @@
 // login_page.dart
 
 import 'package:flutter/material.dart';
+import 'package:unipay/home_page.dart';
 import 'registration_page.dart';
 
 class LoginPage extends StatelessWidget {
@@ -68,7 +69,10 @@ class LoginPage extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // TODO: Implement login functionality
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomePage()),
+                ); // TODO: Implement login functionality
               },
               style: ElevatedButton.styleFrom(
                 primary: Colors.deepOrange, // Setting the button color to deep orange
