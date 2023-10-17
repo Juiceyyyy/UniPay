@@ -1,6 +1,7 @@
 // registration_page.dart
 
 import 'package:flutter/material.dart';
+// ignore: unused_import
 import 'login_page.dart';
 
 class RegistrationPage extends StatelessWidget {
