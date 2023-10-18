@@ -59,12 +59,8 @@ class _SignUpFormState extends State<SignUpForm> {
 
           ElevatedButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => HomePage()),
-              );
+              _registerUser();
             },
-
             child: Text("Sign Up".toUpperCase()),
           ),
           const SizedBox(height: defaultPadding),
@@ -92,7 +88,7 @@ class _SignUpFormState extends State<SignUpForm> {
     });
 
     try {
-      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
       );
@@ -111,6 +107,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
     } catch (e) {
       // Handle registration errors here.
+      print("Error registering user: $e");
       setState(() {
         _errorText = "Error registering user: $e";
       });

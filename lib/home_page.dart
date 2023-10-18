@@ -7,6 +7,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Dashboard'),
+        backgroundColor: Colors.purpleAccent,
       ),
       drawer: Drawer(
         child: ListView(
@@ -14,7 +15,7 @@ class HomePage extends StatelessWidget {
           children: <Widget>[
             DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: Colors.purpleAccent,
               ),
               child: Text(
                 'Menu',
@@ -77,7 +78,7 @@ class HomePage extends StatelessWidget {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.deepOrange, // Setting the button color to deep orange
+                  primary: Colors.purpleAccent, // Setting the button color to deep orange
                   padding: EdgeInsets.symmetric(vertical: 16.0),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
