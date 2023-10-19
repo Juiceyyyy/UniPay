@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "952786014191",
+    "firebase_url": "https://unipay-53a9d-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "unipay-53a9d",
+    "storage_bucket": "unipay-53a9d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:952786014191:android:d538019646f9a91cea301a",
+        "android_client_info": {
+          "package_name": "com.example.unipay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "952786014191-if2kvcnnig2h3o2mdkmhfakd2m8lqs4n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.unipay",
+            "certificate_hash": "f7974f7eb2ae39aee0856da7646216d9ac40b976"
+          }
+        },
+        {
+          "client_id": "952786014191-4babja8nujkbdub2rgj9ej8fq10vboss.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYpU_BINUppmeoY11nDJbLrt50TLCvRNQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "952786014191-4babja8nujkbdub2rgj9ej8fq10vboss.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "952786014191-9uqeutt080bnh6uavsunbbfr8vangbqi.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.unipay"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
