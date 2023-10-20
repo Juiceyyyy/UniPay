@@ -38,6 +38,7 @@ dependencies:
   firebase_core: ^2.17.0
   firebase_auth: ^4.10.1
   flutter_svg: ^2.0.7
+  local_auth: ^2.1.7
   google_sign_in: ^6.1.5
   google_sign_in_web: ^0.12.0+5
   googleapis: ^11.4.0

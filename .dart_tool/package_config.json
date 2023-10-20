@@ -146,6 +146,12 @@
       "languageVersion": "2.19"
     },
     {
+      "name": "flutter_plugin_android_lifecycle",
+      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.16",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
       "name": "flutter_svg",
       "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_svg-2.0.7",
       "packageUri": "lib/",
@@ -230,6 +236,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "intl",
+      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.18.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "js",
       "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/js-0.6.7",
       "packageUri": "lib/",
@@ -238,6 +250,36 @@
     {
       "name": "lints",
       "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/lints-2.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "local_auth",
+      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/local_auth-2.1.7",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "local_auth_android",
+      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/local_auth_android-1.0.34",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "local_auth_ios",
+      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/local_auth_ios-1.1.4",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "local_auth_platform_interface",
+      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/local_auth_platform_interface-1.0.8",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "local_auth_windows",
+      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/local_auth_windows-1.0.10",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -410,7 +452,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2023-10-19T17:11:03.205283Z",
+  "generated": "2023-10-20T16:29:11.755234Z",
   "generator": "pub",
   "generatorVersion": "3.1.3"
 }
