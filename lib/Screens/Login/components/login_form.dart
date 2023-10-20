@@ -24,17 +24,15 @@ class _LoginFormState extends State<LoginForm> {
         email: emailController.text,
         password: passwordController.text,
       );
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) {
-            return HomePage();
-          },
-        ),
-      );
 
       // If login is successful, you can navigate to a different screen.
       // For example, Navigator.push() to the user's home screen.
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()),
+            (route) => false, // Clear the navigation stack
+      );
+
     } on FirebaseAuthException catch (e) {
       String errorMessage = "An error occurred. Please try again.";
       if (e.code == 'user-not-found') {

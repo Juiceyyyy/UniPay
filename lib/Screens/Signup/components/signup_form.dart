@@ -96,15 +96,11 @@ class _SignUpFormState extends State<SignUpForm> {
       // The user is registered successfully.
       //print("User registered: ${userCredential.user?.email}");
       // Redirect to another screen or perform any other necessary actions here.
-      Navigator.push(
+      Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(
-          builder: (context) {
-            return HomePage();
-          },
-        ),
+        MaterialPageRoute(builder: (context) => HomePage()),
+            (route) => false, // Clear the navigation stack
       );
-
     } catch (e) {
       // Handle registration errors here.
       print("Error registering user: $e");

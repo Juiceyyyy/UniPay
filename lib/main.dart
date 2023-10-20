@@ -6,6 +6,9 @@ import 'package:unipay/firebase_options.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:flutter/services.dart'; // Import this for PlatformException
 import 'package:flutter/foundation.dart' show kIsWeb; // Import this to check if it's a web platform
+import 'package:firebase_auth/firebase_auth.dart';
+
+import 'Screens/Home/home_page.dart'; // Import Firebase Authentication
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,7 +48,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -56,8 +58,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            elevation: 0,
-            primary: kPrimaryColor,
+            elevation: 0, backgroundColor: kPrimaryColor,
             shape: const StadiumBorder(),
             maximumSize: const Size(double.infinity, 56),
             minimumSize: const Size(double.infinity, 56),
@@ -76,7 +77,22 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: WelcomeScreen(),
+      home: AuthenticateUser(), // Change this to check user authentication state
     );
+  }
+}
+
+class AuthenticateUser extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      // User is already authenticated, navigate to the homepage
+      return HomePage();
+    } else {
+      // User is not authenticated, navigate to the welcome screen
+      return WelcomeScreen();
+    }
   }
 }

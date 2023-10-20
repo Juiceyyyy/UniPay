@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:unipay/Screens/Login/login_screen.dart';
 
@@ -72,10 +73,7 @@ class HomePage extends StatelessWidget {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()),
-                  );
+                  _signOut(context); // Call the _signOut function when the button is pressed
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.purpleAccent, // Setting the button color to deep orange
@@ -94,5 +92,18 @@ class HomePage extends StatelessWidget {
         ),
       ),
     );
+  }
+  Future<void> _signOut(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => LoginScreen()),
+            (route) => false, // Clear the navigation stack
+      );
+    } catch (e) {
+      // Handle sign-out errors, if any
+      print('Error signing out: $e');
+    }
   }
 }
