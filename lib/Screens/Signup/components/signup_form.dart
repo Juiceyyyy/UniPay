@@ -5,6 +5,8 @@ import 'package:unipay/Screens/Home/home_page.dart';
 import '../../../components/already_have_an_account_acheck.dart';
 import '../../../constants.dart';
 import '../../Login/login_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({Key? key}) : super(key: key);
@@ -92,6 +94,29 @@ class _SignUpFormState extends State<SignUpForm> {
         email: _emailController.text,
         password: _passwordController.text,
       );
+
+      // Get the current user and UID
+      User? user = FirebaseAuth.instance.currentUser;
+      String? uid = user?.uid;
+
+      // Now you have the UID, you can store it in Firestore or perform other actions.
+      // Reference to Firestore
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+      // Create a document reference using the user's UID
+      DocumentReference userDoc = firestore.collection('users').doc(uid);
+
+      // Define the user data to be stored
+      Map<String, dynamic> userData = {
+        // 'displayName': user?.displayName,
+        'email': user?.email,
+        'admin': false,
+      };
+
+      // Set the user data in the Firestore document
+      await userDoc.set(userData);
+      print('User data added to Firestore');
+
 
       // The user is registered successfully.
       //print("User registered: ${userCredential.user?.email}");
