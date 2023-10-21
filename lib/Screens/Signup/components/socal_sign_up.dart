@@ -5,16 +5,13 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:unipay/Screens/Home/home_page.dart';
 import '../../../screens/Signup/components/or_divider.dart';
 import '../../../screens/Signup/components/social_icon.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SocalSignUp extends StatelessWidget {
   const SocalSignUp({
     Key? key,
   }) : super(key: key);
 
-  void updateGoogleSignInClientId() {
-    const String clientId =
-        '952786014191-4babja8nujkbdub2rgj9ej8fq10vboss.apps.googleusercontent.com';
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +56,29 @@ class SocalSignUp extends StatelessWidget {
       );
       final UserCredential authResult =
       await FirebaseAuth.instance.signInWithCredential(credential);
+
+      User? user = FirebaseAuth.instance.currentUser;
+      String? uid = user?.uid;
+
+      // Now you have the UID, you can store it in Firestore or perform other actions.
+      // Reference to Firestore
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+      // Create a document reference using the user's UID
+      DocumentReference userDoc = firestore.collection('users').doc(uid);
+
+      // Define the user data to be stored
+      Map<String, dynamic> userData = {
+        // 'displayName': user?.displayName,
+        'Email': user?.email,
+        'Balance': 0, // Initialize 'Balance' to 0 by default
+        'Admin': false,
+      };
+
+      // Set the user data in the Firestore document
+      await userDoc.set(userData);
+      print('User data added to Firestore');
+
 
       if (authResult.user != null) {
         Navigator.pushAndRemoveUntil(
