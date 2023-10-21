@@ -109,8 +109,9 @@ class _SignUpFormState extends State<SignUpForm> {
       // Define the user data to be stored
       Map<String, dynamic> userData = {
         // 'displayName': user?.displayName,
-        'email': user?.email,
-        'admin': false,
+        'Email': user?.email,
+        'Balance': 0, // Initialize 'Balance' to 0 by default
+        'Admin': false,
       };
 
       // Set the user data in the Firestore document
