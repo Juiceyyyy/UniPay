@@ -8,17 +8,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:952786014191:android:d538019646f9a91cea301a",
+        "mobilesdk_app_id": "1:952786014191:android:67733bd0805492f2ea301a",
         "android_client_info": {
-          "package_name": "com.example.unipay"
+          "package_name": "com.example.unipay1"
         }
       },
       "oauth_client": [
         {
-          "client_id": "952786014191-if2kvcnnig2h3o2mdkmhfakd2m8lqs4n.apps.googleusercontent.com",
+          "client_id": "952786014191-h9hmhl7m4usl9t01mq320n34uk6hnpf5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.unipay",
+            "package_name": "com.example.unipay1",
             "certificate_hash": "f7974f7eb2ae39aee0856da7646216d9ac40b976"
           }
         },

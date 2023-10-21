@@ -33,8 +33,6 @@
         <option name="gradleJvm" value="jbr-17" />
         <option name="modules">
           <set>
-            <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth-4.11.1/android" />
-            <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core-2.19.0/android" />
             <option value="$PROJECT_DIR$/../../FlutterDev/flutter/packages/flutter_tools/gradle" />
             <option value="$PROJECT_DIR$/android" />
             <option value="$PROJECT_DIR$/android/app" />
