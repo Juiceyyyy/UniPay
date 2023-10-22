@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:unipay/responsive.dart';
-
 import '../../components/background.dart';
+import '../../constants.dart';
+import '../Signup/components/socal_sign_up.dart';
 import 'components/login_form.dart';
 import 'components/login_screen_top_image.dart';
 
@@ -10,26 +11,29 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Background(
+    return Background(
       child: SingleChildScrollView(
         child: Responsive(
           mobile: MobileLoginScreen(),
           desktop: Row(
             children: [
-              Expanded(
+              const Expanded(
                 child: LoginScreenTopImage(),
               ),
               Expanded(
-                child: Row(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 450,
                       child: LoginForm(),
                     ),
+                    SizedBox(height: defaultPadding / 2,
+                        child: SocalSignUp()
+                    )
                   ],
                 ),
-              ),
+              )
             ],
           ),
         ),
@@ -38,6 +42,7 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
+
 class MobileLoginScreen extends StatelessWidget {
   const MobileLoginScreen({
     Key? key,
@@ -45,7 +50,7 @@ class MobileLoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         LoginScreenTopImage(),
@@ -59,6 +64,7 @@ class MobileLoginScreen extends StatelessWidget {
             Spacer(),
           ],
         ),
+        SocalSignUp()
       ],
     );
   }

@@ -8,6 +8,7 @@ import 'package:flutter/services.dart'; // Import this for PlatformException
 import 'package:flutter/foundation.dart' show kIsWeb; // Import this to check if it's a web platform
 import 'package:firebase_auth/firebase_auth.dart';
 
+
 import 'Screens/Home/home_page.dart'; // Import Firebase Authentication
 
 void main() async {

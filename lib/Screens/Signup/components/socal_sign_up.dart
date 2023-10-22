@@ -21,18 +21,18 @@ class SocalSignUp extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SocalIcon(
-              iconSrc: "assets/icons/facebook.svg",
-              press: () {
-                // Implement Facebook Sign-In here
-              },
-            ),
-            SocalIcon(
-              iconSrc: "assets/icons/twitter.svg",
-              press: () {
-                // Implement Twitter Sign-In here
-              },
-            ),
+            // SocalIcon(
+            //   iconSrc: "assets/icons/facebook.svg",
+            //   press: () {
+            //     // Implement Facebook Sign-In here
+            //   },
+            // ),
+            // SocalIcon(
+            //   iconSrc: "assets/icons/twitter.svg",
+            //   press: () {
+            //     // Implement Twitter Sign-In here
+            //   },
+            // ),
             SocalIcon(
               iconSrc: "assets/icons/google-plus.svg",
               press: () {
@@ -44,41 +44,40 @@ class SocalSignUp extends StatelessWidget {
       ],
     );
   }
-
+//checks if user is already registered in db, if not then assigns default values
   Future<void> _handleGoogleSignIn(BuildContext context) async {
     try {
-      final GoogleSignInAccount? googleUser =
-      await GoogleSignIn(scopes: ['email']).signIn();
+      final GoogleSignInAccount? googleUser = await GoogleSignIn(scopes: ['email']).signIn();
       final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
-      final UserCredential authResult =
-      await FirebaseAuth.instance.signInWithCredential(credential);
+      final UserCredential authResult = await FirebaseAuth.instance.signInWithCredential(credential);
 
       User? user = FirebaseAuth.instance.currentUser;
       String? uid = user?.uid;
 
-      // Now you have the UID, you can store it in Firestore or perform other actions.
       // Reference to Firestore
       FirebaseFirestore firestore = FirebaseFirestore.instance;
 
       // Create a document reference using the user's UID
       DocumentReference userDoc = firestore.collection('users').doc(uid);
 
-      // Define the user data to be stored
-      Map<String, dynamic> userData = {
-        // 'displayName': user?.displayName,
-        'Email': user?.email,
-        'Balance': 0, // Initialize 'Balance' to 0 by default
-        'Admin': false,
-      };
+      // Check if the user document exists
+      final userDocSnapshot = await userDoc.get();
+      if (!userDocSnapshot.exists) {
+        // User document doesn't exist, set the user data
+        Map<String, dynamic> userData = {
+          'Email': user?.email,
+          'Balance': 0, // Initialize 'Balance' to 0 by default
+          'Admin': false,
+        };
 
-      // Set the user data in the Firestore document
-      await userDoc.set(userData);
-      print('User data added to Firestore');
-
+        // Set the user data in the Firestore document
+        await userDoc.set(userData);
+        print('User data added to Firestore');
+      }
 
       if (authResult.user != null) {
         Navigator.pushAndRemoveUntil(
