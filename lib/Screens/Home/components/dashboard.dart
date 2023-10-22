@@ -12,7 +12,6 @@ class _DashboardState extends State<Dashboard> {
   String userEmail = "";
   int userBalance = 0;
 
-
   @override
   void initState() {
     super.initState();
@@ -35,9 +34,9 @@ class _DashboardState extends State<Dashboard> {
 
       if (documentSnapshot.exists) {
         final data = documentSnapshot.data();
-        final balance = data?['Balance']; // No need to cast to double
+        final balance = data?['Balance'];
         setState(() {
-          userBalance = balance as int; // Convert to int
+          userBalance = balance as int;
         });
       } else {
         print("Document does not exist.");
@@ -47,46 +46,46 @@ class _DashboardState extends State<Dashboard> {
     }
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: color12,
-      body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: SizedBox(height: 340, child: _head()),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Transactions History',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 19,
-                        color: Colors.black,
+    return RefreshIndicator(
+      onRefresh: () => fetchUserData(), // Trigger refresh when swiped down
+      child: Scaffold(
+        backgroundColor: color12,
+        body: SafeArea(
+          child: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: SizedBox(height: 340, child: _head()),
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Transactions History',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 19,
+                          color: Colors.black,
+                        ),
                       ),
-                    ),
-                    Text(
-                      'See all',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 15,
-                        color: Colors.black,
+                      Text(
+                        'See all',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 15,
+                          color: Colors.black,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
