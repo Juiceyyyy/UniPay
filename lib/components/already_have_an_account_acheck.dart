@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:unipay/constants.dart';
+import 'package:unipay/components/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AlreadyHaveAnAccountCheck extends StatelessWidget {

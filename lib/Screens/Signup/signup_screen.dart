@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:unipay/constants.dart';
-import 'package:unipay/responsive.dart';
+import 'package:unipay/components/constants.dart';
+import 'package:unipay/components/responsive.dart';
 import '../../components/background.dart';
 import 'components/sign_up_top_image.dart';
 import 'components/signup_form.dart';

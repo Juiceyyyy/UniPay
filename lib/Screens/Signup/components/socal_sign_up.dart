@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:unipay/Screens/Home/home_page.dart';
+import 'package:unipay/Screens/Home/user_home.dart';
 import '../../../screens/Signup/components/or_divider.dart';
 import '../../../screens/Signup/components/social_icon.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../../Home/admin_home.dart';
 
 class SocalSignUp extends StatelessWidget {
   const SocalSignUp({
@@ -44,16 +46,20 @@ class SocalSignUp extends StatelessWidget {
       ],
     );
   }
+
 //checks if user is already registered in db, if not then assigns default values
   Future<void> _handleGoogleSignIn(BuildContext context) async {
     try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn(scopes: ['email']).signIn();
-      final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+      final GoogleSignInAccount? googleUser = await GoogleSignIn(
+          scopes: ['email']).signIn();
+      final GoogleSignInAuthentication googleAuth = await googleUser!
+          .authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
-      final UserCredential authResult = await FirebaseAuth.instance.signInWithCredential(credential);
+      final UserCredential authResult = await FirebaseAuth.instance
+          .signInWithCredential(credential);
 
       User? user = FirebaseAuth.instance.currentUser;
       String? uid = user?.uid;
@@ -79,7 +85,18 @@ class SocalSignUp extends StatelessWidget {
         print('User data added to Firestore');
       }
 
-      if (authResult.user != null) {
+      // Check the 'Admin' status after signing in
+      bool isAdmin = userDocSnapshot['Admin'] ?? false;
+
+      if (isAdmin) {
+        // If the user is an admin, redirect to the admin page
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => AdminPage()),
+              (route) => false,
+        );
+      } else {
+        // If the user is not an admin, redirect to the home page
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => HomePage()),

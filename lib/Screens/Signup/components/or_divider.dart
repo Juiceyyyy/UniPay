@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:unipay/constants.dart';
+import 'package:unipay/components/constants.dart';
 
 class OrDivider extends StatelessWidget {
   const OrDivider({Key? key}) : super(key: key);

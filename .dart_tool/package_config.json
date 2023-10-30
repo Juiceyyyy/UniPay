@@ -2,12 +2,6 @@
   "configVersion": 2,
   "packages": [
     {
-      "name": "_discoveryapis_commons",
-      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/_discoveryapis_commons-1.0.6",
-      "packageUri": "lib/",
-      "languageVersion": "2.19"
-    },
-    {
       "name": "_fe_analyzer_shared",
       "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/_fe_analyzer_shared-61.0.0",
       "packageUri": "lib/",
@@ -159,9 +153,9 @@
     },
     {
       "name": "flutter_lints",
-      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-2.0.3",
+      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-3.0.0",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.0"
     },
     {
       "name": "flutter_plugin_android_lifecycle",
@@ -230,18 +224,6 @@
       "languageVersion": "3.1"
     },
     {
-      "name": "googleapis",
-      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/googleapis-11.4.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.0"
-    },
-    {
-      "name": "googleapis_auth",
-      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/googleapis_auth-1.4.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.19"
-    },
-    {
       "name": "http",
       "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/http-1.1.0",
       "packageUri": "lib/",
@@ -267,7 +249,7 @@
     },
     {
       "name": "lints",
-      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/lints-2.1.1",
+      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/lints-3.0.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -279,7 +261,7 @@
     },
     {
       "name": "local_auth_android",
-      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/local_auth_android-1.0.34",
+      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/local_auth_android-1.0.35",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -470,7 +452,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2023-10-22T09:52:22.283422Z",
+  "generated": "2023-10-24T10:17:20.003480Z",
   "generator": "pub",
   "generatorVersion": "3.1.4"
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:unipay/responsive.dart';
+import 'package:unipay/components/responsive.dart';
 import '../../components/background.dart';
-import '../../constants.dart';
+import '../../components/constants.dart';
 import '../Signup/components/socal_sign_up.dart';
 import 'components/login_form.dart';
 import 'components/login_screen_top_image.dart';

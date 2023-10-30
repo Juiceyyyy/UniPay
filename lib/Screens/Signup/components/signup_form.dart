@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:unipay/Screens/Home/home_page.dart';
+import 'package:unipay/Screens/Home/user_home.dart';
 
 import '../../../components/already_have_an_account_acheck.dart';
-import '../../../constants.dart';
+import '../../../components/constants.dart';
 import '../../Login/login_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 

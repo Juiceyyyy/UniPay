@@ -1,15 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:unipay/Screens/Welcome/welcome_screen.dart';
-import 'package:unipay/constants.dart';
-import 'package:unipay/firebase_options.dart';
+import 'package:unipay/components/constants.dart';
+import 'package:unipay/components/firebase_options.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:flutter/services.dart'; // Import this for PlatformException
 import 'package:flutter/foundation.dart' show kIsWeb; // Import this to check if it's a web platform
 import 'package:firebase_auth/firebase_auth.dart';
 
 
-import 'Screens/Home/home_page.dart'; // Import Firebase Authentication
+import 'Screens/Home/user_home.dart'; // Import Firebase Authentication
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
