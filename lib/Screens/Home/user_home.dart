@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:unipay/Screens/Login/login_screen.dart';
 import 'package:unipay/components/constants.dart';
+import '../Transfer/send.dart';
 import 'components/dashboard.dart';
 
 class HomePage extends StatelessWidget {
@@ -45,6 +46,8 @@ class HomePage extends StatelessWidget {
             ListTile(
               title: Text('Send'),
               onTap: () {
+
+                Navigator.push(context, MaterialPageRoute(builder: (context) => SendMoney()));
                 // Add functionality here for Button 2
               },
             ),

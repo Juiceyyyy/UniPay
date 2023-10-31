@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:unipay/Screens/Login/login_screen.dart';
 import 'package:unipay/components/constants.dart';
+import 'package:unipay/generateCoin.dart';
+import '../Transfer/send.dart';
 import 'components/dashboard.dart';
 
 class AdminPage extends StatelessWidget {
@@ -45,13 +47,13 @@ class AdminPage extends StatelessWidget {
             ListTile(
               title: Text('Generate Coins'),
               onTap: () {
-                // Add functionality here for Button 1
+                Navigator.push(context, MaterialPageRoute(builder: (context) => GenerateCoin()));
               },
             ),
             ListTile(
               title: Text('Send'),
               onTap: () {
-                // Add functionality here for Button 2
+                Navigator.push(context, MaterialPageRoute(builder: (context) => SendMoney()));
               },
             ),
             ListTile(
