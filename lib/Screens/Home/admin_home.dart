@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:unipay/Screens/Login/login_screen.dart';
 import 'package:unipay/components/constants.dart';
-import 'package:unipay/generateCoin.dart';
+import 'package:unipay/Screens/Home/components/generateCoin.dart';
 import '../Transfer/send.dart';
 import 'components/dashboard.dart';
 

@@ -1,23 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:unipay/Screens/Home/admin_home.dart';
 import '../../components/constants.dart';
+import '../Home/user_home.dart';
 
-class GenerateCoin extends StatefulWidget {
+class SendMoney extends StatefulWidget {
   @override
-  _GenerateCoinState createState() => _GenerateCoinState();
+  _SendMoneyState createState() => _SendMoneyState();
 }
 
-class _GenerateCoinState extends State<GenerateCoin> {
+class _SendMoneyState extends State<SendMoney> {
   TextEditingController amount = TextEditingController();
+  TextEditingController id = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: color12,
       appBar: AppBar(
-        title: Text('Generate Coins'),
+        title: Text('Send Money'),
         backgroundColor: color15,
       ),
       body: SingleChildScrollView(
@@ -27,11 +28,31 @@ class _GenerateCoinState extends State<GenerateCoin> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 150),
-              Text(
-                'Generate Coins',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
+              Text('Send Money To', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)), // Add logic to fetch the name
               SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                child: TextField(
+                  controller: id,
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.emailAddress,
+                  cursorColor: Colors.black,
+                  style: TextStyle(color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold),
+                  decoration: InputDecoration(
+                    hintText: "Enter Recipients Email",
+                    hintStyle: TextStyle(color: Colors.grey, fontSize: 20),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 50.0),
                 child: TextField(
@@ -40,9 +61,6 @@ class _GenerateCoinState extends State<GenerateCoin> {
                   keyboardType: TextInputType.number,
                   cursorColor: Colors.black,
                   style: TextStyle(color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold),
-                  onTap: () {
-                    // Add onTap logic
-                  },
                   decoration: InputDecoration(
                     hintText: "Enter Amount",
                     hintStyle: TextStyle(color: Colors.grey, fontSize: 20),
@@ -84,12 +102,12 @@ class _GenerateCoinState extends State<GenerateCoin> {
                   color: color15,
                   child: MaterialButton(
                     onPressed: () {
-                      // Call the Generate function
-                      generate();
+                      // Add navigation logic
+                      transfer();
                     },
                     minWidth: double.infinity,
                     height: 50,
-                    child: Text("Generate", style: TextStyle(color: Colors.white, fontSize: 16)),
+                    child: Text("Send", style: TextStyle(color: Colors.white, fontSize: 16)),
                   ),
                 ),
               ),
@@ -99,8 +117,7 @@ class _GenerateCoinState extends State<GenerateCoin> {
       ),
     );
   }
-
-  Future<void> generate() async {
+  Future<void> transfer() async {
     User? user = FirebaseAuth.instance.currentUser;
     String? uid = user?.uid;
     FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -108,28 +125,26 @@ class _GenerateCoinState extends State<GenerateCoin> {
     DocumentSnapshot userSnapshot = await userDoc.get();
 
     if (userSnapshot.exists) {
-      Map<String, dynamic>? userData = userSnapshot.data() as Map<String, dynamic>?;
+      Map<String, dynamic>? userData = userSnapshot.data() as Map<
+          String,
+          dynamic>?;
 
       if (userData != null) {
         int valueToAdd = int.parse(amount.text);
+        // TODO: fetch user-email data and userid from that
         int currentBalance = (userData['Balance'] ?? 0);
-        int updatedBalance = currentBalance + valueToAdd;
+        int updatedBalance = currentBalance - valueToAdd;
+        //TODO :add transferred to logic
 
         await userDoc.update({'Balance': updatedBalance});
 
         // Navigate back to the dashboard after generating coins
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => AdminPage()),
+          MaterialPageRoute(builder: (context) => HomePage()),
               (route) => false, // Clear the navigation stack
         );
-      } else {
-        print('User data is null or empty');
-        // Handle the case where the user's data is missing
       }
-    } else {
-      print('User document does not exist');
-      // Handle the case where the user's document doesn't exist
     }
   }
 }
