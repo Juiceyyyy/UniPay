@@ -29,7 +29,8 @@ class _SendMoneyState extends State<SendMoney> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 150),
-              Text('Send Money To', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+              Text('Send Money To',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
               SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 50.0),
@@ -38,7 +39,9 @@ class _SendMoneyState extends State<SendMoney> {
                   textAlign: TextAlign.center,
                   keyboardType: TextInputType.emailAddress,
                   cursorColor: Colors.black,
-                  style: TextStyle(color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.black,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold),
                   decoration: InputDecoration(
                     hintText: "Enter Recipient's Email",
                     hintStyle: TextStyle(color: Colors.grey, fontSize: 20),
@@ -61,7 +64,9 @@ class _SendMoneyState extends State<SendMoney> {
                   textAlign: TextAlign.center,
                   keyboardType: TextInputType.number,
                   cursorColor: Colors.black,
-                  style: TextStyle(color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.black,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold),
                   decoration: InputDecoration(
                     hintText: "Enter Amount",
                     hintStyle: TextStyle(color: Colors.grey, fontSize: 20),
@@ -109,7 +114,8 @@ class _SendMoneyState extends State<SendMoney> {
                     },
                     minWidth: double.infinity,
                     height: 50,
-                    child: Text("Send", style: TextStyle(color: Colors.white, fontSize: 16)),
+                    child: Text("Send",
+                        style: TextStyle(color: Colors.white, fontSize: 16)),
                   ),
                 ),
               ),
@@ -126,48 +132,66 @@ class _SendMoneyState extends State<SendMoney> {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     // Fetch recipient details based on email
-    QuerySnapshot recipientQuery = await firestore.collection('users').where('Email', isEqualTo: id.text).get();
+    QuerySnapshot recipientQuery = await firestore.collection('users').where(
+        'Email', isEqualTo: id.text).get();
 
     if (recipientQuery.docs.isNotEmpty) {
       String recipientUid = recipientQuery.docs.first.id;
-      Map<String, dynamic>? recipientData = recipientQuery.docs.first.data() as Map<String, dynamic>?;
 
-      if (recipientData != null) { // Checking if recipientData is not null
-        int valueToAdd = int.tryParse(amount.text) ?? 0;
-        int senderCurrentBalance = (await firestore.collection('users').doc(senderUid).get()).data()?['Balance'] ?? 0;
-        int recipientCurrentBalance = recipientData['Balance'] ?? 0;
+      // Check if the recipient is not the same as the sender
+      if (recipientUid != senderUid) {
+        Map<String, dynamic>? recipientData = recipientQuery.docs.first
+            .data() as Map<String, dynamic>?;
 
-        if (valueToAdd > 0 && senderCurrentBalance >= valueToAdd) {
-          int updatedSenderBalance = senderCurrentBalance - valueToAdd;
-          int updatedRecipientBalance = recipientCurrentBalance + valueToAdd;
+        if (recipientData != null) { // Checking if recipientData is not null
+          int valueToAdd = int.tryParse(amount.text) ?? 0;
+          int senderCurrentBalance = (await firestore.collection('users').doc(
+              senderUid).get()).data()?['Balance'] ?? 0;
+          int recipientCurrentBalance = recipientData['Balance'] ?? 0;
 
-          // Update sender's balance
-          await firestore.collection('users').doc(senderUid).update({'Balance': updatedSenderBalance});
+          if (valueToAdd > 0 && senderCurrentBalance >= valueToAdd) {
+            int updatedSenderBalance = senderCurrentBalance - valueToAdd;
+            int updatedRecipientBalance = recipientCurrentBalance + valueToAdd;
 
-          // Update recipient's balance
-          await firestore.collection('users').doc(recipientUid).update({'Balance': updatedRecipientBalance});
+            // Update sender's balance
+            await firestore.collection('users').doc(senderUid).update(
+                {'Balance': updatedSenderBalance});
 
-          // Successfully transferred, navigate back to the dashboard or display a success message
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Money sent successfully!'),
-            ),
-          );
+            // Update recipient's balance
+            await firestore.collection('users').doc(recipientUid).update(
+                {'Balance': updatedRecipientBalance});
 
-          // Navigate back to the dashboard
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => AuthenticationPage()),
-          );
-        } else {
-          // Show an error message for an insufficient balance or invalid amount
-          String errorMessage = (valueToAdd <= 0) ? 'Please enter a valid amount' : 'Insufficient balance for this transaction';
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(errorMessage),
-            ),
-          );
+            // Successfully transferred, navigate back to the dashboard or display a success message
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Money sent successfully!'),
+              ),
+            );
+
+            // Navigate back to the dashboard
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AuthenticationPage()),
+            );
+          } else {
+            // Show an error message for an insufficient balance or invalid amount
+            String errorMessage = (valueToAdd <= 0)
+                ? 'Please enter a valid amount'
+                : 'Insufficient balance for this transaction';
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(errorMessage),
+              ),
+            );
+          }
         }
+      } else {
+        // Show an error message if sender tries to send money to themselves
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("You can't send money to yourself."),
+          ),
+        );
       }
     } else {
       // Show an error message if recipient email is not found
