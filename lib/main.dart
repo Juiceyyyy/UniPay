@@ -1,15 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:unipay/Screens/Welcome/welcome_screen.dart';
 import 'package:unipay/components/constants.dart';
 import 'package:unipay/components/firebase_options.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:flutter/services.dart'; // Import this for PlatformException
 import 'package:flutter/foundation.dart' show kIsWeb; // Import this to check if it's a web platform
-import 'package:firebase_auth/firebase_auth.dart';
-
-
-import 'Screens/Home/user_home.dart'; // Import Firebase Authentication
+import 'components/authenticate.dart'; // Import Firebase Authentication
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -78,22 +74,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: AuthenticateUser(), // Change this to check user authentication state
+      home: AuthenticationPage(), // Change this to check user authentication state
     );
-  }
-}
-
-class AuthenticateUser extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser;
-
-    if (user != null) {
-      // User is already authenticated, navigate to the homepage
-      return HomePage();
-    } else {
-      // User is not authenticated, navigate to the welcome screen
-      return WelcomeScreen();
-    }
   }
 }

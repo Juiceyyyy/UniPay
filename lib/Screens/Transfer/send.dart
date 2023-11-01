@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../../components/authenticate.dart';
 import '../../components/constants.dart';
-import '../Home/user_home.dart';
 
 class SendMoney extends StatefulWidget {
   @override
@@ -12,6 +12,7 @@ class SendMoney extends StatefulWidget {
 class _SendMoneyState extends State<SendMoney> {
   TextEditingController amount = TextEditingController();
   TextEditingController id = TextEditingController();
+  TextEditingController message = TextEditingController(); // Added controller for message
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class _SendMoneyState extends State<SendMoney> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 150),
-              Text('Send Money To', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)), // Add logic to fetch the name
+              Text('Send Money To', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
               SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 50.0),
@@ -39,7 +40,7 @@ class _SendMoneyState extends State<SendMoney> {
                   cursorColor: Colors.black,
                   style: TextStyle(color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold),
                   decoration: InputDecoration(
-                    hintText: "Enter Recipients Email",
+                    hintText: "Enter Recipient's Email",
                     hintStyle: TextStyle(color: Colors.grey, fontSize: 20),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -79,6 +80,8 @@ class _SendMoneyState extends State<SendMoney> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 50.0),
                 child: TextField(
+                  controller: message,
+                  textAlign: TextAlign.center,
                   decoration: InputDecoration(
                     hintText: "Message",
                     hintStyle: TextStyle(color: Colors.grey, fontSize: 20),
@@ -102,8 +105,7 @@ class _SendMoneyState extends State<SendMoney> {
                   color: color15,
                   child: MaterialButton(
                     onPressed: () {
-                      // Add navigation logic
-                      transfer();
+                      transfer(context); // Pass the context for navigation
                     },
                     minWidth: double.infinity,
                     height: 50,
@@ -117,34 +119,63 @@ class _SendMoneyState extends State<SendMoney> {
       ),
     );
   }
-  Future<void> transfer() async {
-    User? user = FirebaseAuth.instance.currentUser;
-    String? uid = user?.uid;
+
+  Future<void> transfer(BuildContext context) async {
+    User? sender = FirebaseAuth.instance.currentUser;
+    String? senderUid = sender?.uid;
     FirebaseFirestore firestore = FirebaseFirestore.instance;
-    DocumentReference userDoc = firestore.collection('users').doc(uid);
-    DocumentSnapshot userSnapshot = await userDoc.get();
 
-    if (userSnapshot.exists) {
-      Map<String, dynamic>? userData = userSnapshot.data() as Map<
-          String,
-          dynamic>?;
+    // Fetch recipient details based on email
+    QuerySnapshot recipientQuery = await firestore.collection('users').where('Email', isEqualTo: id.text).get();
 
-      if (userData != null) {
-        int valueToAdd = int.parse(amount.text);
-        // TODO: fetch user-email data and userid from that
-        int currentBalance = (userData['Balance'] ?? 0);
-        int updatedBalance = currentBalance - valueToAdd;
-        //TODO :add transferred to logic
+    if (recipientQuery.docs.isNotEmpty) {
+      String recipientUid = recipientQuery.docs.first.id;
+      Map<String, dynamic>? recipientData = recipientQuery.docs.first.data() as Map<String, dynamic>?;
 
-        await userDoc.update({'Balance': updatedBalance});
+      if (recipientData != null) { // Checking if recipientData is not null
+        int valueToAdd = int.tryParse(amount.text) ?? 0;
+        int senderCurrentBalance = (await firestore.collection('users').doc(senderUid).get()).data()?['Balance'] ?? 0;
+        int recipientCurrentBalance = recipientData['Balance'] ?? 0;
 
-        // Navigate back to the dashboard after generating coins
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => HomePage()),
-              (route) => false, // Clear the navigation stack
-        );
+        if (valueToAdd > 0 && senderCurrentBalance >= valueToAdd) {
+          int updatedSenderBalance = senderCurrentBalance - valueToAdd;
+          int updatedRecipientBalance = recipientCurrentBalance + valueToAdd;
+
+          // Update sender's balance
+          await firestore.collection('users').doc(senderUid).update({'Balance': updatedSenderBalance});
+
+          // Update recipient's balance
+          await firestore.collection('users').doc(recipientUid).update({'Balance': updatedRecipientBalance});
+
+          // Successfully transferred, navigate back to the dashboard or display a success message
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Money sent successfully!'),
+            ),
+          );
+
+          // Navigate back to the dashboard
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AuthenticationPage()),
+          );
+        } else {
+          // Show an error message for an insufficient balance or invalid amount
+          String errorMessage = (valueToAdd <= 0) ? 'Please enter a valid amount' : 'Insufficient balance for this transaction';
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(errorMessage),
+            ),
+          );
+        }
       }
+    } else {
+      // Show an error message if recipient email is not found
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Recipient email not found.'),
+        ),
+      );
     }
   }
 }

@@ -1,12 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:unipay/components/authenticate.dart';
 import '../../../components/already_have_an_account_acheck.dart';
 import '../../../components/constants.dart';
-import '../../Home/admin_home.dart';
 import '../../Signup/signup_screen.dart';
-import 'package:unipay/Screens/Home/user_home.dart';
+
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -20,42 +18,18 @@ class _LoginFormState extends State<LoginForm> {
   final passwordController = TextEditingController();
 
   // Function to sign the user in
-  Future<void> signUserIn() async {
-    try {
-      // Sign in the user
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
+  void signUserIn(BuildContext context) {
+    FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: emailController.text,
+      password: passwordController.text,
+    ).then((userCredential) {
+      // Check userCredential for successful sign-in
+      // On success, navigate to the AuthenticationPage
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => AuthenticationPage()),
       );
-
-      // Fetch user details after signing in
-      User? user = FirebaseAuth.instance.currentUser;
-
-      DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user?.uid)
-          .get();
-
-      // Check if the user is an admin based on the retrieved data
-      bool isAdmin = userSnapshot['Admin'];
-
-      if (isAdmin) {
-        // If the user is an admin, redirect to the admin page
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => AdminPage()), // Redirect to the admin page
-              (route) => false, // Clear the navigation stack
-        );
-      } else {
-        // If the user is not an admin, redirect to the home page
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => HomePage()), // Redirect to the home page
-              (route) => false, // Clear the navigation stack
-        );
-      }
-
-    } on FirebaseAuthException catch (e) {
+    }).catchError((e) {
       // Handle authentication errors
       String errorMessage = "An error occurred. Please try again.";
       if (e.code == 'user-not-found') {
@@ -68,7 +42,7 @@ class _LoginFormState extends State<LoginForm> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(errorMessage),
       ));
-    }
+    });
   }
 
 
@@ -111,10 +85,8 @@ class _LoginFormState extends State<LoginForm> {
           Hero(
             tag: "login_btn",
             child: ElevatedButton(
-              onPressed: signUserIn,
-              child: Text(
-                "Login".toUpperCase(),
-              ),
+              onPressed: () => signUserIn(context),
+              child: Text("Login".toUpperCase()),
             ),
           ),
           const SizedBox(height: defaultPadding),
