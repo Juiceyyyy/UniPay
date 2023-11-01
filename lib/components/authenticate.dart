@@ -14,7 +14,9 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
   @override
   void initState() {
     super.initState();
-    checkUserAuthentication();
+    Future.delayed(Duration.zero, () {
+      checkUserAuthentication();
+    });
   }
 
   Future<void> checkUserAuthentication() async {
