@@ -1,7 +1,9 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:unipay/components/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../../components/constants.dart';
+import '../../Transfer/sendmoney.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -11,11 +13,24 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   String userEmail = "";
   int userBalance = 0;
+  int _selectedIndex = 0;
+  late PageController _pageController;
 
   @override
   void initState() {
     super.initState();
+    _pageController = PageController(initialPage: 0);
     fetchUserData();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  void onTabTapped(int index) {
+    _pageController.jumpToPage(index);
   }
 
   Future<void> fetchUserData() async {
@@ -36,7 +51,7 @@ class _DashboardState extends State<Dashboard> {
         final data = documentSnapshot.data();
         final balance = data?['Balance'];
         setState(() {
-          userBalance = balance as int;
+          userBalance = (balance ?? 0) as int;
         });
       } else {
         print("Document does not exist.");
@@ -48,50 +63,84 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: () => fetchUserData(), // Trigger refresh when swiped down
-      child: Scaffold(
-        backgroundColor: color12,
-        body: SafeArea(
-          child: CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(
-                child: SizedBox(height: 340, child: _head()),
-              ),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Transactions History',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 19,
-                          color: Colors.black,
-                        ),
-                      ),
-                      Text(
-                        'See all',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 15,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+    return Scaffold(
+      backgroundColor: color12,
+      body: PageView(
+        controller: _pageController,
+        physics: NeverScrollableScrollPhysics(),
+        children: <Widget>[
+          _buildDashboard(),
+          SendMoney(),
+          Container(color: Colors.green), //replace with appropriate page
+          Container(color: Colors.yellow), //replace with appropriate page
+          Container(color: Colors.red), //replace with appropriate page
+        ],
+      ),
+      bottomNavigationBar: CurvedNavigationBar(
+        index: _selectedIndex,
+        items: <Widget>[
+          Icon(Icons.home, size: 30, color: color13),
+          Icon(Icons.upload, size: 30, color: color13),
+          Icon(Icons.qr_code, size: 30, color: color13),
+          Icon(Icons.download, size: 30, color: color13),
+          Icon(Icons.person, size: 30, color: color13),
+        ],
+        color: color14, // Replace 'color14' with appropriate color
+        buttonBackgroundColor: color14, // Replace 'color14' with appropriate color
+        backgroundColor: color12, // Replace 'color12' with appropriate color
+        animationCurve: Curves.easeInOut,
+        animationDuration: Duration(milliseconds: 600),
+        onTap: onTabTapped,
       ),
     );
   }
 
-  Widget _head() {
+  Widget _buildDashboard() {
+    return RefreshIndicator(
+        onRefresh: fetchUserData,
+        child: SafeArea(
+          child: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: 340,
+              child: _head(userEmail, userBalance),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Transactions History',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 19,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Text(
+                    'See all',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          // Other Slivers and your UI here
+        ],
+      ),
+    )
+   );
+  }
+
+  Widget _head(String userEmail, int userBalance) {
     return Stack(
       children: [
         Column(
@@ -128,12 +177,13 @@ class _DashboardState extends State<Dashboard> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 35, left: 10), // Removed 'const' here
+                    padding: EdgeInsets.only(top: 35, left: 10),
+                    // Removed 'const' here
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Good Afternoon',
+                          'Good Morning',
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 16,
@@ -141,7 +191,8 @@ class _DashboardState extends State<Dashboard> {
                           ),
                         ),
                         Text(
-                          '$userEmail', // Displaying the userEmail (replace with Name later)
+                          '$userEmail',
+                          // Displaying the userEmail (replace with Name later)
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 20,

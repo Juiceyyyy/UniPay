@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:unipay/Screens/Login/login_screen.dart';
 import 'package:unipay/components/constants.dart';
 import 'package:unipay/Screens/Home/components/generateCoin.dart';
-import '../Transfer/send.dart';
+import '../Transfer/sendmoney.dart';
 import 'components/dashboard.dart';
 
 class AdminPage extends StatelessWidget {
@@ -70,29 +70,24 @@ class AdminPage extends StatelessWidget {
             ),
             ListTile(
               title: Text('Sign Out'),
-              onTap: () {
-                // Add functionality here for Button 1
-                _signOut(context);
+              onTap: () async {
+                  try {
+                    await FirebaseAuth.instance.signOut();
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                          (route) => false, // Clear the navigation stack
+                    );
+                  } catch (e) {
+                    // Handle sign-out errors, if any
+                    print('Error signing out: $e');
+                  }
               },
             ),
           ],
         ),
-      ), // Add a comma here
+      ),
       body: Dashboard(),
     );
-  }
-
-  Future<void> _signOut(BuildContext context) async {
-    try {
-      await FirebaseAuth.instance.signOut();
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => LoginScreen()),
-            (route) => false, // Clear the navigation stack
-      );
-    } catch (e) {
-      // Handle sign-out errors, if any
-      print('Error signing out: $e');
-    }
   }
 }

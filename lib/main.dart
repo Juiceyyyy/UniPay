@@ -1,11 +1,17 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:unipay/Screens/Welcome/welcome_screen.dart';
 import 'package:unipay/components/constants.dart';
 import 'package:unipay/components/firebase_options.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:flutter/services.dart'; // Import this for PlatformException
-import 'package:flutter/foundation.dart' show kIsWeb; // Import this to check if it's a web platform
-import 'components/authenticate.dart'; // Import Firebase Authentication
+import 'Screens/Home/admin_home.dart';
+import 'Screens/Home/user_home.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+// Global variable to store the user's role
+bool isAdmin = false;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,38 +19,29 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  if (kIsWeb) {
-    runApp(const MyApp());
-  } else {
-    final localAuth = LocalAuthentication();
-    bool didAuthenticate = false;
+  final localAuth = LocalAuthentication();
+  bool didAuthenticate = false;
 
-    try {
-      didAuthenticate = await localAuth.authenticate(
-        localizedReason: 'Authenticate to access the app',
-      );
-    } on PlatformException catch (e) {
-      if (e.code == 'LAError.userCancel') {
-        // Biometric authentication was canceled.
-        print('Biometric authentication canceled');
-      } else if (e.code == 'LAError.biometryNotAvailable') {
-        // Biometric authentication is not available on this device.
-        print('Biometric authentication not available');
-      } else {
-        // Handle other errors.
-        print('Biometric authentication error: $e');
-      }
+  try {
+    didAuthenticate = await localAuth.authenticate(
+      localizedReason: 'Authenticate to access the app',
+    );
+  } on PlatformException catch (e) {
+    if (e.code == 'LAError.userCancel') {
+      print('Biometric authentication canceled');
+    } else if (e.code == 'LAError.biometryNotAvailable') {
+      print('Biometric authentication not available');
+    } else {
+      print('Biometric authentication error: $e');
     }
+  }
 
-    if (didAuthenticate) {
-      runApp(const MyApp());
-    }
+  if (didAuthenticate) {
+    runApp(MyApp());
   }
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -74,7 +71,37 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: AuthenticationPage(), // Change this to check user authentication state
+      home: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
+          if (snapshot.connectionState == ConnectionState.active) {
+            if (snapshot.hasData) {
+              return StreamBuilder<DocumentSnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(snapshot.data!.uid)
+                    .snapshots(),
+                builder: (context, userSnapshot) {
+                  if (userSnapshot.connectionState == ConnectionState.active) {
+                    bool isAdmin = userSnapshot.data?['Admin'] ?? false;
+                    return isAdmin ? AdminPage() : HomePage();
+                  } else {
+                    return Scaffold(
+                      body: Center(child: CircularProgressIndicator()),
+                    );
+                  }
+                },
+              );
+            } else {
+              return WelcomeScreen();
+            }
+          } else {
+            return Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            );
+          }
+        },
+      ),
     );
   }
 }
