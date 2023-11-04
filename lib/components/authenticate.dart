@@ -1,9 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import '../Screens/Home/admin_home.dart';
 import '../Screens/Home/user_home.dart';
-import '../Screens/Welcome/welcome_screen.dart';
+import '../main.dart';
 
 class AuthenticationPage extends StatefulWidget {
   @override
@@ -20,31 +18,15 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
   }
 
   Future<void> checkUserAuthentication() async {
-    final User? user = FirebaseAuth.instance.currentUser;
-
-    if (user != null) {
-      DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .get();
-
-      bool isAdmin = userSnapshot['Admin'];
-
-      if (isAdmin) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => AdminPage()),
-        );
-      } else {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => HomePage()),
-        );
-      }
+    if (isAdmin) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => AdminPage()),
+      );
     } else {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => WelcomeScreen()),
+        MaterialPageRoute(builder: (context) => HomePage()),
       );
     }
   }

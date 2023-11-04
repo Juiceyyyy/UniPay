@@ -67,13 +67,18 @@ class _DashboardState extends State<Dashboard> {
       backgroundColor: color12,
       body: PageView(
         controller: _pageController,
-        physics: NeverScrollableScrollPhysics(),
+        // physics: NeverScrollableScrollPhysics(), //remove comment to stop navigation by swiping left n right
+        onPageChanged: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
         children: <Widget>[
           _buildDashboard(),
           SendMoney(),
-          Container(color: Colors.green), //replace with appropriate page
-          Container(color: Colors.yellow), //replace with appropriate page
-          Container(color: Colors.red), //replace with appropriate page
+          Container(color: Colors.green), // Replace these with appropriate pages
+          Container(color: Colors.yellow), // Replace these with appropriate pages
+          Container(color: Colors.red), // Replace these with appropriate pages
         ],
       ),
       bottomNavigationBar: CurvedNavigationBar(
