@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:unipay/Screens/Login/login_screen.dart';
 import 'package:unipay/components/constants.dart';
-import '../Transfer/sendmoney.dart';
+import '../Send/sendmoney.dart';
 import 'components/dashboard.dart';
 
 class HomePage extends StatelessWidget {

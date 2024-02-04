@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../components/constants.dart';
-import '../../Transfer/sendmoney.dart';
+import '../../QR/scanner.dart';
+import '../../Recieve/generate_qr_code.dart';
+import '../../Send/sendmoney.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -76,8 +78,8 @@ class _DashboardState extends State<Dashboard> {
         children: <Widget>[
           _buildDashboard(),
           SendMoney(),
-          Container(color: Colors.green), // Replace these with appropriate pages
-          Container(color: Colors.yellow), // Replace these with appropriate pages
+          Scanner(),// Replace these with appropriate pages
+          GenerateQRCode(), // Replace these with appropriate pages
           Container(color: Colors.red), // Replace these with appropriate pages
         ],
       ),
