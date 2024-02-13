@@ -5,6 +5,7 @@ import 'package:unipay/components/constants.dart';
 import 'package:unipay/Screens/Home/components/generateCoin.dart';
 import '../Send/sendmoney.dart';
 import 'components/dashboard.dart';
+import 'components/deleteCoin.dart';
 
 class AdminPage extends StatelessWidget {
   @override
@@ -48,6 +49,12 @@ class AdminPage extends StatelessWidget {
               title: Text('Generate Coins'),
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => GenerateCoin()));
+              },
+            ),
+            ListTile(
+              title: Text('Destroy Coins'),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => DestroyCoin()));
               },
             ),
             ListTile(
