@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:unipay/Screens/Login/login_screen.dart';
 import 'package:unipay/components/constants.dart';
 import 'package:unipay/Screens/Home/components/generateCoin.dart';
+import '../Recieve/generate_qr_code.dart';
 import '../Send/sendmoney.dart';
 import 'components/dashboard.dart';
 import 'components/deleteCoin.dart';
@@ -66,7 +67,7 @@ class AdminPage extends StatelessWidget {
             ListTile(
               title: Text('Receive'),
               onTap: () {
-                // Add functionality here for Button 1
+                Navigator.push(context, MaterialPageRoute(builder: (context) => GenerateQRCode()));
               },
             ),
             ListTile(

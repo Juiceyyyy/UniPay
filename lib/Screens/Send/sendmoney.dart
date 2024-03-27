@@ -33,15 +33,17 @@ class _SendMoneyState extends State<SendMoney> {
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
               SizedBox(height: 20),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: TextField(
                   controller: id,
                   textAlign: TextAlign.center,
                   keyboardType: TextInputType.emailAddress,
                   cursorColor: Colors.black,
-                  style: TextStyle(color: Colors.black,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
                   decoration: InputDecoration(
                     hintText: "Enter Recipient's Email",
                     hintStyle: TextStyle(color: Colors.grey, fontSize: 20),
@@ -58,15 +60,17 @@ class _SendMoneyState extends State<SendMoney> {
               ),
               SizedBox(height: 10),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: TextField(
                   controller: amount,
                   textAlign: TextAlign.center,
                   keyboardType: TextInputType.number,
                   cursorColor: Colors.black,
-                  style: TextStyle(color: Colors.black,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
                   decoration: InputDecoration(
                     hintText: "Enter Amount",
                     hintStyle: TextStyle(color: Colors.grey, fontSize: 20),
@@ -83,10 +87,16 @@ class _SendMoneyState extends State<SendMoney> {
               ),
               SizedBox(height: 10),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: TextField(
                   controller: message,
                   textAlign: TextAlign.center,
+                  cursorColor: Colors.black,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
                   decoration: InputDecoration(
                     hintText: "Message",
                     hintStyle: TextStyle(color: Colors.grey, fontSize: 20),
@@ -114,8 +124,10 @@ class _SendMoneyState extends State<SendMoney> {
                     },
                     minWidth: double.infinity,
                     height: 50,
-                    child: Text("Send",
-                        style: TextStyle(color: Colors.white, fontSize: 16)),
+                    child: Text(
+                      "Send",
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
                   ),
                 ),
               ),

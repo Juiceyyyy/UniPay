@@ -17,12 +17,14 @@ class _DashboardState extends State<Dashboard> {
   int userBalance = 0;
   int _selectedIndex = 0;
   late PageController _pageController;
+  late String greeting;
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: 0);
     fetchUserData();
+    greeting = _getGreeting();
   }
 
   @override
@@ -147,6 +149,24 @@ class _DashboardState extends State<Dashboard> {
    );
   }
 
+  String _getGreeting() {
+    // Get current time
+    DateTime now = DateTime.now();
+
+    // Determine the period of the day
+    String period = '';
+    if (now.hour >= 0 && now.hour < 12) {
+      period = 'Morning';
+    } else if (now.hour >= 12 && now.hour < 18) {
+      period = 'Afternoon';
+    } else {
+      period = 'Evening';
+    }
+
+    // Generate the greeting message
+    return 'Good $period';
+  }
+
   Widget _head(String userEmail, int userBalance) {
     return Stack(
       children: [
@@ -190,7 +210,7 @@ class _DashboardState extends State<Dashboard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Good Morning',
+                        greeting,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 16,

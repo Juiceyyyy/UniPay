@@ -20,23 +20,34 @@ void main() async {
   );
 
   final localAuth = LocalAuthentication();
-  bool didAuthenticate = false;
 
-  try {
-    didAuthenticate = await localAuth.authenticate(
-      localizedReason: 'Authenticate to access the app',
-    );
-  } on PlatformException catch (e) {
-    if (e.code == 'LAError.userCancel') {
-      print('Biometric authentication canceled');
-    } else if (e.code == 'LAError.biometryNotAvailable') {
-      print('Biometric authentication not available');
-    } else {
-      print('Biometric authentication error: $e');
+  // Check if biometric authentication is available
+  List<BiometricType> availableBiometrics = await localAuth.getAvailableBiometrics();
+
+  // If biometric authentication is available and user has set it up, authenticate
+  if (availableBiometrics.isNotEmpty) {
+    bool didAuthenticate = false;
+
+    try {
+      didAuthenticate = await localAuth.authenticate(
+        localizedReason: 'Authenticate to access the app',
+      );
+    } on PlatformException catch (e) {
+      if (e.code == 'LAError.userCancel') {
+        print('Biometric authentication canceled');
+      } else if (e.code == 'LAError.biometryNotAvailable') {
+        print('Biometric authentication not available');
+      } else {
+        print('Biometric authentication error: $e');
+      }
     }
-  }
 
-  if (didAuthenticate) {
+    // Proceed with the app if authentication was successful
+    if (didAuthenticate) {
+      runApp(MyApp());
+    }
+  } else {
+    // If biometric authentication is not available or not set up, proceed with the app
     runApp(MyApp());
   }
 }
