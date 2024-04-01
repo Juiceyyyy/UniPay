@@ -2,6 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:unipay/Screens/Profile/profile.dart';
 import '../../../components/constants.dart';
 import '../../QR/scanner.dart';
 import '../../Recieve/generate_qr_code.dart';
@@ -82,7 +83,7 @@ class _DashboardState extends State<Dashboard> {
           SendMoney(),
           Scanner(),// Replace these with appropriate pages
           GenerateQRCode(), // Replace these with appropriate pages
-          Container(color: Colors.red), // Replace these with appropriate pages
+          ProfilePage(), // Replace these with appropriate pages
         ],
       ),
       bottomNavigationBar: CurvedNavigationBar(

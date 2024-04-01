@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:unipay/Screens/Login/login_screen.dart';
+import 'package:unipay/Screens/Profile/profile.dart';
 import 'package:unipay/components/constants.dart';
 import 'package:unipay/Screens/Home/components/generateCoin.dart';
 import '../Recieve/generate_qr_code.dart';
@@ -37,7 +38,7 @@ class AdminPage extends StatelessWidget {
             ListTile(
               title: Text('Profile'),
               onTap: () {
-                // Add functionality here for Button 1
+                Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));
               },
             ),
             ListTile(

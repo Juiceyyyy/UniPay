@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:unipay/Screens/Login/login_screen.dart';
 import 'package:unipay/components/constants.dart';
+import '../Profile/profile.dart';
 import '../Recieve/generate_qr_code.dart';
 import '../Send/sendmoney.dart';
 import 'components/dashboard.dart';
@@ -35,7 +36,7 @@ class HomePage extends StatelessWidget {
             ListTile(
               title: Text('Profile'),
               onTap: () {
-                // Add functionality here for Button 1
+                Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));
               },
             ),
             ListTile(
