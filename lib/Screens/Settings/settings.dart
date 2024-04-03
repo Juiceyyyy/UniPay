@@ -1,10 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:unipay/Screens/Settings/widgets/forward_button.dart';
 import 'package:unipay/Screens/Settings/widgets/setting_item.dart';
 import 'package:unipay/Screens/Settings/widgets/setting_switch.dart';
-
 import 'edit_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
