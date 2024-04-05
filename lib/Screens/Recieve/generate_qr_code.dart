@@ -39,19 +39,22 @@ class GenerateQRCodeState extends State<GenerateQRCode> {
         title: const Text('Receive Money'),
         backgroundColor: color15,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(height:10),
+        body: SingleChildScrollView(
+            child: Container(
+                width: double.infinity,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 150),
             QrImageView(
               data: '$userEmail',
               version: QrVersions.auto,
-              size: 200.0,
+              size: 250.0,
               embeddedImageStyle: const QrEmbeddedImageStyle(
-                size: Size(100, 100),
+                size: Size(120, 120),
               ),
             ),
-          SizedBox(height:8), //box above amount input box
+          SizedBox(height:15), //box above amount input box
           Container(
             margin: const EdgeInsets.all(20),
             child: TextField(
@@ -70,7 +73,7 @@ class GenerateQRCodeState extends State<GenerateQRCode> {
               ),
               cursorColor: Colors.black, // Change the cursor color
             ),
-          ),
+          ),SizedBox(height:10),
           //This button when pressed navigates to QR code generation
           ElevatedButton(
               onPressed: () async {
@@ -85,7 +88,9 @@ class GenerateQRCodeState extends State<GenerateQRCode> {
               },
               child: const Text('GENERATE QR CODE')),
         ],
-      ),
+       ),
+      )
+     )
     );
   }
 }

@@ -165,9 +165,9 @@
     },
     {
       "name": "flutter_lints",
-      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-3.0.1",
+      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-3.0.2",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "3.1"
     },
     {
       "name": "flutter_plugin_android_lifecycle",
@@ -183,7 +183,7 @@
     },
     {
       "name": "flutter_svg",
-      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_svg-2.0.9",
+      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_svg-2.0.10+1",
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
@@ -219,9 +219,9 @@
     },
     {
       "name": "google_sign_in_android",
-      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_android-6.1.21",
+      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_android-6.1.22",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "3.1"
     },
     {
       "name": "google_sign_in_ios",
@@ -260,6 +260,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "ionicons",
+      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/ionicons-0.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "js",
       "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/js-0.6.7",
       "packageUri": "lib/",
@@ -279,7 +285,7 @@
     },
     {
       "name": "local_auth_android",
-      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/local_auth_android-1.0.36",
+      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/local_auth_android-1.0.37",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -429,19 +435,19 @@
     },
     {
       "name": "vector_graphics",
-      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/vector_graphics-1.1.9+2",
+      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/vector_graphics-1.1.11+1",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "vector_graphics_codec",
-      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/vector_graphics_codec-1.1.9+2",
+      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/vector_graphics_codec-1.1.11+1",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "vector_graphics_compiler",
-      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/vector_graphics_compiler-1.1.9+2",
+      "rootUri": "file:///C:/Users/Joshua%20Menezes/AppData/Local/Pub/Cache/hosted/pub.dev/vector_graphics_compiler-1.1.11+1",
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
@@ -482,7 +488,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2024-02-04T07:43:32.481296Z",
+  "generated": "2024-04-02T15:34:09.536866Z",
   "generator": "pub",
   "generatorVersion": "3.1.5"
 }

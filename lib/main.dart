@@ -60,10 +60,10 @@ class MyApp extends StatelessWidget {
       title: 'UniPay',
       theme: ThemeData(
         primaryColor: kPrimaryColor,
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: color12,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            elevation: 0, backgroundColor: kPrimaryColor,
+            elevation: 0, backgroundColor: color15,
             shape: const StadiumBorder(),
             maximumSize: const Size(double.infinity, 56),
             minimumSize: const Size(double.infinity, 56),
