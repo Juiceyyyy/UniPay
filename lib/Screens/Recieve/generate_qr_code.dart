@@ -36,8 +36,14 @@ class GenerateQRCodeState extends State<GenerateQRCode> {
     return Scaffold(
       backgroundColor: color12,
       appBar: AppBar(
-        title: const Text('Receive Money'),
-        backgroundColor: color15,
+        title: const Text('Receive Money',
+          style: TextStyle(
+          color: Colors.white,
+        ),),
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+        backgroundColor: color14,
       ),
         body: SingleChildScrollView(
             child: Container(
@@ -86,7 +92,13 @@ class GenerateQRCodeState extends State<GenerateQRCode> {
                   ),
                 );
               },
-              child: const Text('GENERATE QR CODE')),
+            child: Text(
+              'GENERATE QR CODE',
+              style: TextStyle(
+                color: Colors.white, // Set the text color to white
+              ),
+            ),
+          ),
         ],
        ),
       )

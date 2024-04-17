@@ -17,8 +17,16 @@ class _GenerateCoinState extends State<GenerateCoin> {
     return Scaffold(
       backgroundColor: color12,
       appBar: AppBar(
-        title: Text('Generate Coins'),
-        backgroundColor: color15,
+        title: Text(
+          'Generate Coins',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.white, // Set icon color to white
+        ),
+        backgroundColor: color14,
       ),
       body: SingleChildScrollView(
         child: Container(

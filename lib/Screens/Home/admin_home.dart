@@ -16,7 +16,15 @@ class AdminPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: color12,
       appBar: AppBar(
-        title: Text('Admin'),
+        title: Text(
+          'Admin',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
         backgroundColor: color15,
       ),
       drawer: Drawer(

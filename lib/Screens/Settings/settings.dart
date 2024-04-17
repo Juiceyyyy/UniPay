@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:unipay/Screens/Profile/profile.dart';
 import 'package:unipay/Screens/Settings/widgets/forward_button.dart';
 import 'package:unipay/Screens/Settings/widgets/setting_item.dart';
 import 'package:unipay/Screens/Settings/widgets/setting_switch.dart';
-import 'edit_screen.dart';
+import '../../components/constants.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -19,11 +20,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(Ionicons.chevron_back_outline),
+        title: Text(
+          'Settings',
+          style: TextStyle(
+            color: Colors.white,
+          ),
         ),
-        leadingWidth: 80,
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+        backgroundColor: color14,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -31,14 +37,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Settings",
-                style: TextStyle(
-                  fontSize: 36,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 40),
               const Text(
                 "Account",
                 style: TextStyle(
@@ -57,18 +55,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Uranus Code",
+                          "Personal info",
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(height: 3),
                         Text(
-                          "Youtube Channel",
+                          "Profile",
                           style: TextStyle(
                             fontSize: 14,
-                            color: Colors.grey,
+                            color: color15,
                           ),
                         )
                       ],
@@ -79,7 +77,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const EditAccountScreen(),
+                            builder: (context) => ProfilePage(),
                           ),
                         );
                       },
@@ -97,27 +95,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               const SizedBox(height: 20),
               SettingItem(
-                title: "Language",
-                icon: Ionicons.earth,
-                bgColor: Colors.orange.shade100,
-                iconColor: Colors.orange,
-                value: "English",
+                title: "Privacy",
+                icon: Ionicons.shield_checkmark,
+                bgColor: color12,
+                iconColor: color15,
                 onTap: () {},
               ),
               const SizedBox(height: 20),
               SettingItem(
-                title: "Notifications",
-                icon: Ionicons.notifications,
-                bgColor: Colors.blue.shade100,
-                iconColor: Colors.blue,
+                title: "About",
+                icon: Icons.info,
+                bgColor: color12,
+                iconColor: color15,
                 onTap: () {},
               ),
               const SizedBox(height: 20),
               SettingSwitch(
                 title: "Dark Mode",
-                icon: Ionicons.earth,
-                bgColor: Colors.purple.shade100,
-                iconColor: Colors.purple,
+                icon: Ionicons.moon,
+                bgColor: color12,
+                iconColor: color15,
                 value: isDarkMode,
                 onTap: (value) {
                   setState(() {
@@ -127,10 +124,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               const SizedBox(height: 20),
               SettingItem(
-                title: "Help",
-                icon: Ionicons.nuclear,
-                bgColor: Colors.red.shade100,
-                iconColor: Colors.red,
+                title: "Lock",
+                icon: Icons.lock,
+                bgColor: color12,
+                iconColor: color15,
+                onTap: () {},
+              ),
+              const SizedBox(height: 20),
+              SettingItem(
+                title: "Delete Account",
+                icon: Icons.delete_forever_rounded,
+                bgColor: color12,
+                iconColor: color15,
                 onTap: () {},
               ),
             ],

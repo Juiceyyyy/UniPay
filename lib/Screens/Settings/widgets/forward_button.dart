@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:unipay/components/constants.dart';
 
 class ForwardButton extends StatelessWidget {
   final Function() onTap;
+
   const ForwardButton({
     super.key,
     required this.onTap,
@@ -13,13 +15,16 @@ class ForwardButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 60,
-        height: 60,
+        width: 50,
+        height: 50,
         decoration: BoxDecoration(
-          color: Colors.grey.shade200,
+          color: color14,
           borderRadius: BorderRadius.circular(15),
         ),
-        child: const Icon(Ionicons.chevron_forward_outline),
+        child: Icon(
+          Ionicons.chevron_forward_outline, // Using Ionicons here
+          color: Colors.white,
+        ),
       ),
     );
   }

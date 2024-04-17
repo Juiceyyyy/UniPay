@@ -17,8 +17,16 @@ class _DestroyCoinState extends State<DestroyCoin> {
     return Scaffold(
       backgroundColor: color12,
       appBar: AppBar(
-        title: Text('Destroy Coins'),
-        backgroundColor: color15,
+        title: Text(
+          'Destroy Coins',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.white, // Set icon color to white
+        ),
+        backgroundColor: color14,
       ),
       body: SingleChildScrollView(
         child: Container(

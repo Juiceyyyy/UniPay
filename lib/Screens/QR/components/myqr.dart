@@ -31,8 +31,16 @@ class _MyQRState extends State<MyQR> {
     return Scaffold(
       backgroundColor: color12,
       appBar: AppBar(
-        title: const Text('Receive Money'),
-        backgroundColor: color15,
+        title: Text(
+          'Recieve Money',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.white, // Set icon color to white
+        ),
+        backgroundColor: color14,
       ),
       body: Center(
         child: QrImageView(

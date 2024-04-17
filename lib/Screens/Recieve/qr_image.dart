@@ -10,10 +10,15 @@ class QRImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      backgroundColor: color12,
       appBar: AppBar(
-        title: const Text('Receive Money'),
+        title: const Text('Receive Money',
+          style: TextStyle(
+          color: Colors.white,
+        ),
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
         backgroundColor: color15,
       ),
       body: Center(

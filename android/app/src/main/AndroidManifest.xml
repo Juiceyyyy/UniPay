@@ -5,7 +5,7 @@
 
 
     <application
-        android:label="unipay"
+        android:label="unipay1"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

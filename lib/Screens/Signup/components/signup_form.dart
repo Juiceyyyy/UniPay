@@ -63,7 +63,12 @@ class _SignUpFormState extends State<SignUpForm> {
             onPressed: () {
               _registerUser();
             },
-            child: Text("Sign Up".toUpperCase()),
+            child: Text(
+              "Sign Up".toUpperCase(),
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
           ),
           const SizedBox(height: defaultPadding),
           AlreadyHaveAnAccountCheck(

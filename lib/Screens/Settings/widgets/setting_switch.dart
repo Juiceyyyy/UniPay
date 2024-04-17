@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:unipay/components/constants.dart';
 
 class SettingSwitch extends StatelessWidget {
   final String title;
@@ -49,7 +50,7 @@ class SettingSwitch extends StatelessWidget {
             value ? "On" : "Off",
             style: const TextStyle(
               fontSize: 16,
-              color: Colors.grey,
+              color: color14,
             ),
           ),
           const SizedBox(width: 20),

@@ -86,9 +86,15 @@ class _LoginFormState extends State<LoginForm> {
             tag: "login_btn",
             child: ElevatedButton(
               onPressed: () => signUserIn(context),
-              child: Text("Login".toUpperCase()),
+              child: Text(
+                "Login".toUpperCase(),
+                style: TextStyle(
+                  color: Colors.white, // Set text color here
+                ),
+              ),
             ),
           ),
+
           const SizedBox(height: defaultPadding),
           AlreadyHaveAnAccountCheck(
             press: () {

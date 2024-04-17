@@ -67,12 +67,13 @@ class MyApp extends StatelessWidget {
             shape: const StadiumBorder(),
             maximumSize: const Size(double.infinity, 56),
             minimumSize: const Size(double.infinity, 56),
+            textStyle: TextStyle(color: Colors.white),
           ),
         ),
         inputDecorationTheme: const InputDecorationTheme(
           filled: true,
           fillColor: kPrimaryLightColor,
-          iconColor: kPrimaryColor,
+          iconColor: Colors.white,
           prefixIconColor: kPrimaryColor,
           contentPadding: EdgeInsets.symmetric(
               horizontal: defaultPadding, vertical: defaultPadding),

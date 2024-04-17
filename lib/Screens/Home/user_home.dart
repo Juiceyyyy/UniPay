@@ -14,7 +14,15 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: color12,
       appBar: AppBar(
-        title: Text('Dashboard'),
+        title: Text(
+          'Dashboard',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
         backgroundColor: color15,
       ),
       drawer: Drawer(
