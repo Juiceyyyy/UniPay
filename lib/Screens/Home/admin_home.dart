@@ -7,6 +7,7 @@ import 'package:unipay/Screens/Home/components/generateCoin.dart';
 import '../Recieve/generate_qr_code.dart';
 import '../Send/sendmoney.dart';
 import '../Settings/settings.dart';
+import '../Transactions/transactions.dart';
 import 'components/dashboard.dart';
 import 'components/deleteCoin.dart';
 
@@ -53,7 +54,7 @@ class AdminPage extends StatelessWidget {
             ListTile(
               title: Text('Transactions'),
               onTap: () {
-                // Add functionality here for Button 1
+                Navigator.push(context, MaterialPageRoute(builder: (context) => TransactionScreen()));
               },
             ),
             ListTile(

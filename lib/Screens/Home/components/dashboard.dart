@@ -2,6 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:unipay/Screens/Transactions/transactions.dart';
 import '../../../components/constants.dart';
 import '../../QR/scanner.dart';
 import '../../Recieve/generate_qr_code.dart';
@@ -131,14 +132,22 @@ class _DashboardState extends State<Dashboard> {
                       color: Colors.black,
                     ),
                   ),
-                  Text(
-                    'See all',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 15,
-                      color: Colors.black,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => TransactionScreen()),
+                      );
+                    },
+                    child: Text(
+                      'See all',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 15,
+                        color: Colors.black,
+                      ),
                     ),
-                  ),
+                  )
                 ],
               ),
             ),

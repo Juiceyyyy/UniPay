@@ -1,9 +1,16 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:unipay/Screens/Profile/profile.dart';
+import 'package:unipay/Screens/Settings/widgets/about.dart';
 import 'package:unipay/Screens/Settings/widgets/forward_button.dart';
 import 'package:unipay/Screens/Settings/widgets/setting_item.dart';
 import 'package:unipay/Screens/Settings/widgets/setting_switch.dart';
+import 'package:unipay/Screens/Welcome/welcome_screen.dart';
 import '../../components/constants.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -107,28 +114,33 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 icon: Icons.info,
                 bgColor: color12,
                 iconColor: color15,
-                onTap: () {},
-              ),
-              const SizedBox(height: 20),
-              SettingSwitch(
-                title: "Dark Mode",
-                icon: Ionicons.moon,
-                bgColor: color12,
-                iconColor: color15,
-                value: isDarkMode,
-                onTap: (value) {
-                  setState(() {
-                    isDarkMode = value;
-                  });
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AboutPage()),
+                  );
                 },
               ),
               const SizedBox(height: 20),
+              // SettingSwitch(
+              //   title: "Dark Mode",
+              //   icon: Ionicons.moon,
+              //   bgColor: color12,
+              //   iconColor: color15,
+              //   value: isDarkMode,
+              //   onTap: (value) {
+              //     setState(() {
+              //       isDarkMode = value;
+              //     });
+              //   },
+              // ),
+              // const SizedBox(height: 20),
               SettingItem(
                 title: "Lock",
                 icon: Icons.lock,
                 bgColor: color12,
                 iconColor: color15,
-                onTap: () {},
+                onTap: () {exit(0);},
               ),
               const SizedBox(height: 20),
               SettingItem(
@@ -136,7 +148,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 icon: Icons.delete_forever_rounded,
                 bgColor: color12,
                 iconColor: color15,
-                onTap: () {},
+                onTap: () {Delete(context);},
               ),
             ],
           ),
@@ -144,4 +156,39 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
     );
   }
+}
+Future<void> Delete(BuildContext context) async {
+  return showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text("Confirm Delete"),
+      content: Text("Are you sure you want to delete your account?"),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop(); // Close the dialog
+          },
+          child: Text("Cancel"),
+        ),
+        TextButton(
+          onPressed: () async {
+            Navigator.of(context).pop();
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => WelcomeScreen()));
+
+            // Delete the user's document from Firestore
+            String userId = FirebaseAuth.instance.currentUser!.uid;
+            await FirebaseFirestore.instance.collection('users').doc(userId).delete();
+            // Delete the user's account
+            await FirebaseAuth.instance.currentUser!.delete();
+            print('Account deleted');
+            // Add your delete account logic using Firestore or any other database method
+
+          },
+          child: Text("Delete"),
+        ),
+      ],
+    ),
+  );
 }
