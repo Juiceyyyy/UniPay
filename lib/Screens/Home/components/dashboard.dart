@@ -16,6 +16,7 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   String userEmail = "";
+  String userName = "";
   int userBalance = 0;
   int _selectedIndex = 0;
   late PageController _pageController;
@@ -44,6 +45,7 @@ class _DashboardState extends State<Dashboard> {
     if (user != null) {
       setState(() {
         userEmail = user.email ?? "Email not found";
+        userName = user.displayName ?? "Name not found";
       });
     }
 
@@ -228,7 +230,7 @@ class _DashboardState extends State<Dashboard> {
                           ),
                         ),
                         Text(
-                          '$userEmail',
+                          '$userName',
                           // Displaying the userEmail (replace with Name later)
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
