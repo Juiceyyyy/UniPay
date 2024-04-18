@@ -94,9 +94,10 @@ class SocalSignUp extends StatelessWidget {
 
       // Add a dummy transaction document
       await transactionsCollection.add({
-        'senderName': 'UniPay',
-        'amount': 0,
-        'dateTime': DateTime.now(),
+        'Name': 'UniPay',
+        'Type': 'Credited',
+        'Amount': 0,
+        'DateTime': DateTime.now(),
       });
       print('Transaction added');
     } catch (e) {

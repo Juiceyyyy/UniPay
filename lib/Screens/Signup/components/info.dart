@@ -16,6 +16,7 @@ class _InfoPageState extends State<InfoPage> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _departmentController = TextEditingController();
   TextEditingController _yearController = TextEditingController();
+  TextEditingController _pinController = TextEditingController();
 
   bool _isEditing = true;
 
@@ -36,14 +37,14 @@ class _InfoPageState extends State<InfoPage> {
         setState(() {
           _nameController.text = userData['Name'] ?? '';
           _phoneNumberController.text = userData['PhoneNumber'] ?? '';
-          _emailController.text = user.email ?? '';
+          _emailController.text = userData['Email'] ?? '';
           _departmentController.text = userData['Department'] ?? '';
           _yearController.text = userData['Year'] ?? '20';
+          _pinController.text = userData['Pin'] ?? '';
         });
       }
     }
   }
-
 
   Future<void> _saveProfileData() async {
     // Check if any required field is empty
@@ -51,7 +52,8 @@ class _InfoPageState extends State<InfoPage> {
         _phoneNumberController.text.isEmpty ||
         _emailController.text.isEmpty ||
         _departmentController.text.isEmpty ||
-        _yearController.text.isEmpty) {
+        _yearController.text.isEmpty ||
+        _pinController.text.isEmpty) {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -70,7 +72,7 @@ class _InfoPageState extends State<InfoPage> {
       return;
     }
 
-    // Save profile data to Firebase Firestore
+    // Update profile data in Firebase Firestore
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -81,6 +83,7 @@ class _InfoPageState extends State<InfoPage> {
         'Email': _emailController.text,
         'Department': _departmentController.text,
         'Year': _yearController.text,
+        'Pin' : _pinController.text,
       }, SetOptions(merge: true));
     }
 
@@ -96,16 +99,17 @@ class _InfoPageState extends State<InfoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(
-            'Profile',
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-          iconTheme: IconThemeData(
+        title: Text(
+          'Profile',
+          style: TextStyle(
             color: Colors.white,
           ),
-          backgroundColor: color14),
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+        backgroundColor: color14,
+      ),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(16.0),
@@ -113,15 +117,17 @@ class _InfoPageState extends State<InfoPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 20),
-              _buildTextField('Name', _nameController, maxDigits: 50, required: true),
+              _buildTextField('Name', _nameController, maxDigits: 50, required: true,),
               SizedBox(height: 20),
-              _buildTextField('Phone Number', _phoneNumberController, maxDigits: 10, required: true),
+              _buildTextField('Phone Number', _phoneNumberController, maxDigits: 10, required: true,),
               SizedBox(height: 20),
-              _buildTextField('Email', _emailController, maxDigits: 50, required: true),
+              _buildTextField('Email', _emailController, maxDigits: 50, required: true,),
               SizedBox(height: 20),
-              _buildTextField('Department', _departmentController, maxDigits: 50, required: true),
+              _buildTextField('Department', _departmentController, maxDigits: 50, required: true,),
               SizedBox(height: 20),
-              _buildTextField('Year', _yearController, maxDigits: 4, required: true),
+              _buildTextField('Year', _yearController, maxDigits: 4, required: true, clue: 'Enter your year of admission'),
+              SizedBox(height: 20),
+              _buildTextField('Pin', _pinController, maxDigits: 4, required: true, clue: 'Enter a 4 digit PIN number, this will be used for all transactions.'),
               SizedBox(height: 20),
               if (_isEditing)
                 ElevatedButton(
@@ -149,45 +155,80 @@ class _InfoPageState extends State<InfoPage> {
     );
   }
 
-  Widget _buildTextField(String label, TextEditingController controller, {required int maxDigits, required bool required}) {
+  Widget _buildTextField(String label, TextEditingController controller, {required int maxDigits, required bool required, String? clue}) {
     TextInputType keyboardType = TextInputType.text; // Default to text input type
 
     // Check if the label corresponds to phone number or year, then set keyboardType accordingly
-    if (label == 'Phone Number' || label == 'Year') {
+    if (label == 'Phone Number' || label == 'Year' || label == 'Pin') {
       keyboardType = TextInputType.number;
     }
 
-    return TextFormField(
-      controller: controller,
-      enabled: _isEditing,
-      cursorColor: color14,
-      style: TextStyle(color: color14),
-      keyboardType: keyboardType, // Use the determined keyboardType
-      inputFormatters: [
-        if (keyboardType == TextInputType.number) // Only allow numeric input if keyboardType is number
-          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')), // Only allow numeric input
-        LengthLimitingTextInputFormatter(maxDigits), // Limit the length of input
+    return Row(
+      children: [
+        Expanded(
+          child: TextFormField(
+            controller: controller,
+            enabled: _isEditing,
+            cursorColor: color14,
+            style: TextStyle(color: color14),
+            keyboardType: keyboardType, // Use the determined keyboardType
+            inputFormatters: [
+              if (keyboardType == TextInputType.number) // Only allow numeric input if keyboardType is number
+                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')), // Only allow numeric input
+              LengthLimitingTextInputFormatter(maxDigits), // Limit the length of input
+            ],
+            decoration: InputDecoration(
+              labelText: label,
+              labelStyle: TextStyle(color: color14),
+              border: OutlineInputBorder(
+                borderSide: BorderSide(color: color14),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: color14),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              suffixIcon: label == 'Year' || label == 'Pin'
+                  ? IconButton(
+                icon: Icon(Icons.help_outline),
+                onPressed: () {
+                  _showClueDialog(context, label, clue);
+                },
+              )
+                  : null,
+            ),
+            validator: (value) {
+              if (required && value!.isEmpty) {
+                return 'This field is required';
+              }
+              return null;
+            },
+          ),
+        ),
       ],
-      decoration: InputDecoration(
-        labelText: label,
-        labelStyle: TextStyle(color: color14),
-        border: OutlineInputBorder(
-          borderSide: BorderSide(color: color14),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: color14),
-          borderRadius: BorderRadius.circular(10),
-        ),
-      ),
-      validator: (value) {
-        if (required && value!.isEmpty) {
-          return 'This field is required';
-        }
-        return null;
+    );
+}
+
+  void _showClueDialog(BuildContext context, String label, String? clue) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(label),
+          content: Text(clue ?? ''),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
       },
     );
   }
+
 
   @override
   void dispose() {

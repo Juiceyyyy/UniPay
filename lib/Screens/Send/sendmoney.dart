@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:unipay/Screens/Send/components/pin.dart';
 import '../../components/authenticate.dart';
 import '../../components/constants.dart';
 
@@ -19,7 +20,7 @@ class _SendMoneyState extends State<SendMoney> {
     return Scaffold(
       backgroundColor: color12,
       appBar: AppBar(
-        title: Text('Send Money'),
+        title: Text('Send Money',style: TextStyle(color: Colors.white),),
         backgroundColor: color15,
       ),
       body: SingleChildScrollView(
@@ -144,46 +145,52 @@ class _SendMoneyState extends State<SendMoney> {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     // Fetch recipient details based on email
-    QuerySnapshot recipientQuery = await firestore.collection('users').where(
-        'Email', isEqualTo: id.text).get();
+    QuerySnapshot recipientQuery = await firestore
+        .collection('users')
+        .where('Email', isEqualTo: id.text)
+        .get();
 
     if (recipientQuery.docs.isNotEmpty) {
       String recipientUid = recipientQuery.docs.first.id;
 
       // Check if the recipient is not the same as the sender
       if (recipientUid != senderUid) {
-        Map<String, dynamic>? recipientData = recipientQuery.docs.first
-            .data() as Map<String, dynamic>?;
+        Map<String, dynamic>? recipientData =
+        recipientQuery.docs.first.data() as Map<String, dynamic>?;
 
-        if (recipientData != null) { // Checking if recipientData is not null
+        if (recipientData != null) {
+          // Fetch sender name
+          String senderName =
+          await fetchUserName(senderUid ?? ''); // Fetch sender name
+
+          // Fetch recipient name
+          String recipientName = await fetchUserName(
+              recipientUid); // Fetch recipient name using recipientUid
+
           int valueToAdd = int.tryParse(amount.text) ?? 0;
-          int senderCurrentBalance = (await firestore.collection('users').doc(
-              senderUid).get()).data()?['Balance'] ?? 0;
+          int senderCurrentBalance = (await firestore
+              .collection('users')
+              .doc(senderUid)
+              .get())
+              .data()?['Balance'] ?? 0;
           int recipientCurrentBalance = recipientData['Balance'] ?? 0;
 
           if (valueToAdd > 0 && senderCurrentBalance >= valueToAdd) {
-            int updatedSenderBalance = senderCurrentBalance - valueToAdd;
-            int updatedRecipientBalance = recipientCurrentBalance + valueToAdd;
-
-            // Update sender's balance
-            await firestore.collection('users').doc(senderUid).update(
-                {'Balance': updatedSenderBalance});
-
-            // Update recipient's balance
-            await firestore.collection('users').doc(recipientUid).update(
-                {'Balance': updatedRecipientBalance});
-
-            // Successfully transferred, navigate back to the dashboard or display a success message
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Money sent successfully!'),
-              ),
-            );
-
-            // Navigate back to the dashboard
+            // Navigate to PinPage with all necessary parameters
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => AuthenticationPage()),
+              MaterialPageRoute(
+                builder: (context) =>
+                    PinPage(
+                      senderUid: senderUid,
+                      valueToAdd: valueToAdd,
+                      recipientUid: recipientUid,
+                      senderCurrentBalance: senderCurrentBalance,
+                      recipientCurrentBalance: recipientCurrentBalance,
+                      senderName: senderName,
+                      recipientName: recipientName,
+                    ),
+              ),
             );
           } else {
             // Show an error message for an insufficient balance or invalid amount
@@ -212,6 +219,20 @@ class _SendMoneyState extends State<SendMoney> {
           content: Text('Recipient email not found.'),
         ),
       );
+    }
+  }
+
+// Function to fetch user name from Firestore
+  Future<String> fetchUserName(String userId) async {
+    DocumentSnapshot userDoc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .get();
+    if (userDoc.exists) {
+      return userDoc['Name'] ??
+          'Unknown'; // Return user's name or 'Unknown' if not found
+    } else {
+      return 'Unknown'; // Return 'Unknown' if user document does not exist
     }
   }
 }

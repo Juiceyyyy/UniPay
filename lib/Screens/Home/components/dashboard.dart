@@ -2,11 +2,11 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:unipay/Screens/Profile/profile.dart';
 import '../../../components/constants.dart';
 import '../../QR/scanner.dart';
 import '../../Recieve/generate_qr_code.dart';
 import '../../Send/sendmoney.dart';
+import '../../Settings/settings.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -83,7 +83,7 @@ class _DashboardState extends State<Dashboard> {
           SendMoney(),
           Scanner(),// Replace these with appropriate pages
           GenerateQRCode(), // Replace these with appropriate pages
-          ProfilePage(), // Replace these with appropriate pages
+          SettingsScreen(), // Replace these with appropriate pages
         ],
       ),
       bottomNavigationBar: CurvedNavigationBar(
@@ -93,7 +93,7 @@ class _DashboardState extends State<Dashboard> {
           Icon(Icons.upload, size: 30, color: color13),
           Icon(Icons.qr_code, size: 30, color: color13),
           Icon(Icons.download, size: 30, color: color13),
-          Icon(Icons.person, size: 30, color: color13),
+          Icon(Icons.settings_rounded, size: 30, color: color13),
         ],
         color: color14, // Replace 'color14' with appropriate color
         buttonBackgroundColor: color14, // Replace 'color14' with appropriate color

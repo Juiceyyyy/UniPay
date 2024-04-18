@@ -130,8 +130,9 @@ class _SignUpFormState extends State<SignUpForm> {
 
       // Add a dummy transaction document
       await transactionsCollection.add({
-        'senderName': 'UniPay',
-        'amount': 0, // Example amount
+        'Name': 'UniPay',
+        'Type': 'Credited',
+        'amount': 0,
         'dateTime': DateTime.now(),
       });
       print('Transaction added');
