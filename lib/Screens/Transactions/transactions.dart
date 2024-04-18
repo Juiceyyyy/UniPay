@@ -127,8 +127,13 @@ class _TransactionScreenState extends State<TransactionScreen> {
           itemCount: transactions.length,
           itemBuilder: (context, index) {
             TransactionData transaction = transactions[index];
+            Color iconColor = transaction.type == 'Debited' ? Colors.red : Colors.green;
+            IconData iconData = transaction.type == 'Debited' ? Icons.arrow_downward : Icons.arrow_upward;
             return ListTile(
-              leading: Icon(Icons.account_balance_wallet),
+              leading: Icon(
+                iconData,
+                color: iconColor,
+              ),
               title: Text(transaction.name),
               subtitle: Text(
                 '${transaction.type}: \$${transaction.amount.toString()}',

@@ -1,7 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:unipay/Screens/Transactions/transactions.dart';
 import '../../../components/constants.dart';
 import '../../QR/scanner.dart';
@@ -21,6 +21,7 @@ class _DashboardState extends State<Dashboard> {
   int _selectedIndex = 0;
   late PageController _pageController;
   late String greeting;
+  late List<TransactionData> transactions = [];
 
   @override
   void initState() {
@@ -110,55 +111,79 @@ class _DashboardState extends State<Dashboard> {
 
   Widget _buildDashboard() {
     return RefreshIndicator(
-        onRefresh: fetchUserData,
-        child: SafeArea(
-          child: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: SizedBox(
-              height: 340,
-              child: _head(userEmail, userBalance),
+      onRefresh: fetchUserData,
+      child: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 340,
+                child: _head(userEmail, userBalance),
+              ),
             ),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Transactions History',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 19,
-                      color: Colors.black,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => TransactionScreen()),
-                      );
-                    },
-                    child: Text(
-                      'See all',
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Transactions History',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
-                        fontSize: 15,
+                        fontSize: 19,
                         color: Colors.black,
                       ),
                     ),
-                  )
-                ],
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => TransactionScreen()),
+                        );
+                      },
+                      child: Text(
+                        'See all',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 15,
+                          color: Colors.black,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-          // Other Slivers and your UI here
-        ],
+
+            // Add icons for transaction history
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                  // Use appropriate icons based on transaction type
+                  IconData iconData = transactions[index].type == 'Debited' ? Icons.arrow_downward : Icons.arrow_upward;
+                  Color iconColor = transactions[index].type == 'Debited' ? Colors.red : Colors.green;
+                  return ListTile(
+                    leading: Icon(
+                      iconData,
+                      color: iconColor,
+                    ),
+                    title: Text(transactions[index].name),
+                    subtitle: Text(
+                      '${transactions[index].type}: \$${transactions[index].amount.toString()}',
+                    ),
+                    trailing: Text(
+                      _formatDate(transactions[index].timestamp),
+                    ),
+                  );
+                },
+                childCount: transactions.length,
+              ),
+            ),
+          ],
+        ),
       ),
-    )
-   );
+    );
   }
 
   String _getGreeting() {
@@ -184,7 +209,6 @@ class _DashboardState extends State<Dashboard> {
       children: [
         Column(
           children: [
-
             //Name Card
             Container(
               width: double.infinity,
@@ -222,7 +246,7 @@ class _DashboardState extends State<Dashboard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                        greeting,
+                          greeting,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 16,
@@ -333,5 +357,10 @@ class _DashboardState extends State<Dashboard> {
         ),
       ],
     );
+  }
+
+  String _formatDate(DateTime dateTime) {
+    // Format DateTime object to a human-readable string
+    return '${dateTime.day}/${dateTime.month}/${dateTime.year}';
   }
 }
