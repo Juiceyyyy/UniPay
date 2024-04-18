@@ -22,6 +22,7 @@ class _DashboardState extends State<Dashboard> {
   late PageController _pageController;
   late String greeting;
   late List<TransactionData> transactions = [];
+  final int maxTransactionsToShow = 4; // Change this number as needed
 
   @override
   void initState() {
@@ -29,6 +30,7 @@ class _DashboardState extends State<Dashboard> {
     _pageController = PageController(initialPage: 0);
     fetchUserData();
     greeting = _getGreeting();
+    fetchTransactions();
   }
 
   @override
@@ -69,6 +71,81 @@ class _DashboardState extends State<Dashboard> {
       print("Error fetching data: $e");
     }
   }
+
+  Future<void> fetchTransactions() async {
+    try {
+      // Clear the existing transactions list
+      setState(() {
+        transactions.clear();
+      });
+
+      // Fetch the current user ID
+      String userId = FirebaseAuth.instance.currentUser!.uid;
+
+      // Reference to the collection
+      CollectionReference transactionsCollection = FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection('transactions');
+
+      QuerySnapshot transactionSnapshot;
+      DocumentSnapshot<Object?>? lastDocument;
+
+      // Keep fetching transactions until there are no more documents
+      do {
+        // Fetch transactions with pagination
+        Query query = lastDocument != null
+            ? transactionsCollection.orderBy('Timestamp', descending: true).startAfterDocument(lastDocument).limit(10)
+            : transactionsCollection.orderBy('Timestamp', descending: true).limit(10);
+
+        transactionSnapshot = await query.get();
+
+        print('Fetching transactions...');
+        print('Last document: $lastDocument');
+        print('Retrieved ${transactionSnapshot.docs.length} documents');
+
+        if (transactionSnapshot.docs.isEmpty) {
+          print('No more transactions found for the current user.');
+          break;
+        }
+
+        // Iterate through each transaction document and fetch details
+        for (DocumentSnapshot transactionDoc in transactionSnapshot.docs) {
+          Map<String, dynamic>? data = transactionDoc.data() as Map<String, dynamic>?;
+
+          if (data == null || data['Timestamp'] == null) {
+            // Skip this transaction if DateTime field is null
+            continue;
+          }
+
+          String name = data['Name'];
+          String type = data['Type'];
+          int amount = data['Amount'];
+          Timestamp timestamp = data['Timestamp'];
+
+          DateTime transactionTime = timestamp.toDate();
+
+          // Create a TransactionData object and add it to the list
+          TransactionData transaction = TransactionData(
+            name: name,
+            type: type,
+            amount: amount,
+            timestamp: transactionTime,
+          );
+
+          setState(() {
+            transactions.add(transaction);
+          });
+        }
+
+        // Update the last document to start after for the next pagination
+        lastDocument = transactionSnapshot.docs.last;
+      } while (transactionSnapshot.docs.length == 10); // Keep fetching until less than 10 documents are retrieved
+    } catch (error) {
+      print('Error fetching transactions: $error');
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +188,10 @@ class _DashboardState extends State<Dashboard> {
 
   Widget _buildDashboard() {
     return RefreshIndicator(
-      onRefresh: fetchUserData,
+      onRefresh: () async {
+        await fetchUserData(); // Refresh user data
+        await fetchTransactions(); // Refresh transaction history
+      },
       child: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -156,52 +236,37 @@ class _DashboardState extends State<Dashboard> {
               ),
             ),
 
-            // Add icons for transaction history
             SliverList(
               delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) {
-                  // Use appropriate icons based on transaction type
-                  IconData iconData = transactions[index].type == 'Debited' ? Icons.arrow_downward : Icons.arrow_upward;
-                  Color iconColor = transactions[index].type == 'Debited' ? Colors.red : Colors.green;
-                  return ListTile(
-                    leading: Icon(
-                      iconData,
-                      color: iconColor,
-                    ),
-                    title: Text(transactions[index].name),
-                    subtitle: Text(
-                      '${transactions[index].type}: \$${transactions[index].amount.toString()}',
-                    ),
-                    trailing: Text(
-                      _formatDate(transactions[index].timestamp),
-                    ),
-                  );
+                  if (index < transactions.length && index < maxTransactionsToShow) {
+                    // Use appropriate icons based on transaction type
+                    IconData iconData = transactions[index].type == 'Debited' ? Icons.arrow_downward : Icons.arrow_upward;
+                    Color iconColor = transactions[index].type == 'Debited' ? Colors.red : Colors.green;
+                    return ListTile(
+                      leading: Icon(
+                        iconData,
+                        color: iconColor,
+                      ),
+                      title: Text(transactions[index].name),
+                      subtitle: Text(
+                        '${transactions[index].type}: \$${transactions[index].amount.toString()}',
+                      ),
+                      trailing: Text(
+                        _formatDate(transactions[index].timestamp),
+                      ),
+                    );
+                  } else {
+                    return SizedBox(); // Return an empty SizedBox for the remaining items
+                  }
                 },
-                childCount: transactions.length,
+                childCount: transactions.length > maxTransactionsToShow ? maxTransactionsToShow : transactions.length,
               ),
             ),
           ],
         ),
       ),
     );
-  }
-
-  String _getGreeting() {
-    // Get current time
-    DateTime now = DateTime.now();
-
-    // Determine the period of the day
-    String period = '';
-    if (now.hour >= 0 && now.hour < 12) {
-      period = 'Morning';
-    } else if (now.hour >= 12 && now.hour < 18) {
-      period = 'Afternoon';
-    } else {
-      period = 'Evening';
-    }
-
-    // Generate the greeting message
-    return 'Good $period';
   }
 
   Widget _head(String userEmail, int userBalance) {
@@ -357,6 +422,24 @@ class _DashboardState extends State<Dashboard> {
         ),
       ],
     );
+  }
+
+  String _getGreeting() {
+    // Get current time
+    DateTime now = DateTime.now();
+
+    // Determine the period of the day
+    String period = '';
+    if (now.hour >= 0 && now.hour < 12) {
+      period = 'Morning';
+    } else if (now.hour >= 12 && now.hour < 18) {
+      period = 'Afternoon';
+    } else {
+      period = 'Evening';
+    }
+
+    // Generate the greeting message
+    return 'Good $period';
   }
 
   String _formatDate(DateTime dateTime) {
