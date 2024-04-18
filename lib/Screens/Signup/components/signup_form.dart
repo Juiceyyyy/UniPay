@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:unipay/Screens/Home/user_home.dart';
+import 'package:unipay/Screens/Signup/components/info.dart';
 
 import '../../../components/already_have_an_account_acheck.dart';
 import '../../../components/constants.dart';
@@ -95,16 +96,17 @@ class _SignUpFormState extends State<SignUpForm> {
     });
 
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      // Create user with email and password
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
       );
 
       // Get the current user and UID
-      User? user = FirebaseAuth.instance.currentUser;
+      User? user = userCredential.user;
       String? uid = user?.uid;
 
-      // Now you have the UID, you can store it in Firestore or perform other actions.
       // Reference to Firestore
       FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -113,7 +115,6 @@ class _SignUpFormState extends State<SignUpForm> {
 
       // Define the user data to be stored
       Map<String, dynamic> userData = {
-        // 'displayName': user?.displayName,
         'Email': user?.email,
         'Balance': 0, // Initialize 'Balance' to 0 by default
         'Admin': false,
@@ -123,17 +124,26 @@ class _SignUpFormState extends State<SignUpForm> {
       await userDoc.set(userData);
       print('User data added to Firestore');
 
+      // Create a subcollection 'transactions' for the user
+      CollectionReference transactionsCollection = userDoc.collection(
+          'transactions');
 
-      // The user is registered successfully.
-      //print("User registered: ${userCredential.user?.email}");
-      // Redirect to another screen or perform any other necessary actions here.
+      // Add a dummy transaction document
+      await transactionsCollection.add({
+        'senderName': 'UniPay',
+        'amount': 0, // Example amount
+        'dateTime': DateTime.now(),
+      });
+      print('Transaction added');
+
+      // Redirect to home page
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => InfoPage()),
             (route) => false, // Clear the navigation stack
       );
     } catch (e) {
-      // Handle registration errors here.
+      // Handle registration errors
       print("Error registering user: $e");
       setState(() {
         _errorText = "Error registering user: $e";

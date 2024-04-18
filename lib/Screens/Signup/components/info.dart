@@ -1,22 +1,23 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../components/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../../components/constants.dart';
+import '../../Home/user_home.dart';
 
-class ProfilePage extends StatefulWidget {
+class InfoPage extends StatefulWidget {
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  _InfoPageState createState() => _InfoPageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _InfoPageState extends State<InfoPage> {
   TextEditingController _nameController = TextEditingController();
   TextEditingController _phoneNumberController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _departmentController = TextEditingController();
   TextEditingController _yearController = TextEditingController();
 
-  bool _isEditing = false;
+  bool _isEditing = true;
 
   @override
   void initState() {
@@ -35,7 +36,7 @@ class _ProfilePageState extends State<ProfilePage> {
         setState(() {
           _nameController.text = userData['Name'] ?? '';
           _phoneNumberController.text = userData['PhoneNumber'] ?? '';
-          _emailController.text = userData['Email'] ?? '';
+          _emailController.text = user.email ?? '';
           _departmentController.text = userData['Department'] ?? '';
           _yearController.text = userData['Year'] ?? '20';
         });
@@ -43,8 +44,33 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
+
   Future<void> _saveProfileData() async {
-    // Update profile data in Firebase Firestore
+    // Check if any required field is empty
+    if (_nameController.text.isEmpty ||
+        _phoneNumberController.text.isEmpty ||
+        _emailController.text.isEmpty ||
+        _departmentController.text.isEmpty ||
+        _yearController.text.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Error'),
+          content: Text('Please fill in all fields.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+
+    // Save profile data to Firebase Firestore
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -57,33 +83,29 @@ class _ProfilePageState extends State<ProfilePage> {
         'Year': _yearController.text,
       }, SetOptions(merge: true));
     }
+
+    // Navigate to the home page
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => HomePage()),
+    );
   }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Profile',
-          style: TextStyle(
+          title: Text(
+            'Profile',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          iconTheme: IconThemeData(
             color: Colors.white,
           ),
-        ),
-        iconTheme: IconThemeData(
-          color: Colors.white,
-        ),
-        backgroundColor: color14,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.edit),
-            onPressed: () {
-              setState(() {
-                _isEditing = !_isEditing;
-              });
-            },
-          ),
-        ],
-      ),
+          backgroundColor: color14),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(16.0),
@@ -91,23 +113,20 @@ class _ProfilePageState extends State<ProfilePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 20),
-              _buildTextField('Name', _nameController, maxDigits: 50),
+              _buildTextField('Name', _nameController, maxDigits: 50, required: true),
               SizedBox(height: 20),
-              _buildTextField('Phone Number', _phoneNumberController, maxDigits: 10),
+              _buildTextField('Phone Number', _phoneNumberController, maxDigits: 10, required: true),
               SizedBox(height: 20),
-              _buildTextField('Email', _emailController, maxDigits: 50),
+              _buildTextField('Email', _emailController, maxDigits: 50, required: true),
               SizedBox(height: 20),
-              _buildTextField('Department', _departmentController, maxDigits: 50),
+              _buildTextField('Department', _departmentController, maxDigits: 50, required: true),
               SizedBox(height: 20),
-              _buildTextField('Year', _yearController, maxDigits: 4),
+              _buildTextField('Year', _yearController, maxDigits: 4, required: true),
               SizedBox(height: 20),
               if (_isEditing)
                 ElevatedButton(
                   onPressed: () async {
                     await _saveProfileData();
-                    setState(() {
-                      _isEditing = false;
-                    });
                   },
                   child: Text(
                     'Save Profile',
@@ -130,7 +149,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _buildTextField(String label, TextEditingController controller, {required int maxDigits}) {
+  Widget _buildTextField(String label, TextEditingController controller, {required int maxDigits, required bool required}) {
     TextInputType keyboardType = TextInputType.text; // Default to text input type
 
     // Check if the label corresponds to phone number or year, then set keyboardType accordingly
@@ -161,6 +180,12 @@ class _ProfilePageState extends State<ProfilePage> {
           borderRadius: BorderRadius.circular(10),
         ),
       ),
+      validator: (value) {
+        if (required && value!.isEmpty) {
+          return 'This field is required';
+        }
+        return null;
+      },
     );
   }
 
