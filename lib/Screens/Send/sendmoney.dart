@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:unipay/Screens/Send/components/pin.dart';
-import '../../components/authenticate.dart';
 import '../../components/constants.dart';
 
 class SendMoney extends StatefulWidget {
@@ -86,32 +85,32 @@ class _SendMoneyState extends State<SendMoney> {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: TextField(
-                  controller: message,
-                  textAlign: TextAlign.center,
-                  cursorColor: Colors.black,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  decoration: InputDecoration(
-                    hintText: "Message",
-                    hintStyle: TextStyle(color: Colors.grey, fontSize: 20),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                ),
-              ),
+              // SizedBox(height: 10),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              //   child: TextField(
+              //     controller: message,
+              //     textAlign: TextAlign.center,
+              //     cursorColor: Colors.black,
+              //     style: TextStyle(
+              //       color: Colors.black,
+              //       fontSize: 30,
+              //       fontWeight: FontWeight.bold,
+              //     ),
+              //     decoration: InputDecoration(
+              //       hintText: "Message",
+              //       hintStyle: TextStyle(color: Colors.grey, fontSize: 20),
+              //       border: OutlineInputBorder(
+              //         borderRadius: BorderRadius.circular(10),
+              //         borderSide: BorderSide.none,
+              //       ),
+              //       focusedBorder: OutlineInputBorder(
+              //         borderRadius: BorderRadius.circular(10),
+              //         borderSide: BorderSide.none,
+              //       ),
+              //     ),
+              //   ),
+              // ),
               SizedBox(height: 25),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 50.0),

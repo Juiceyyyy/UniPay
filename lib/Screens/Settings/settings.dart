@@ -4,12 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:unipay/Screens/Profile/profile.dart';
 import 'package:unipay/Screens/Settings/widgets/about.dart';
 import 'package:unipay/Screens/Settings/widgets/forward_button.dart';
 import 'package:unipay/Screens/Settings/widgets/setting_item.dart';
-import 'package:unipay/Screens/Settings/widgets/setting_switch.dart';
 import 'package:unipay/Screens/Welcome/welcome_screen.dart';
 import '../../components/constants.dart';
 
@@ -101,14 +99,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-              SettingItem(
-                title: "Privacy",
-                icon: Ionicons.shield_checkmark,
-                bgColor: color12,
-                iconColor: color15,
-                onTap: () {},
-              ),
-              const SizedBox(height: 20),
+              // SettingItem(
+              //   title: "Privacy",
+              //   icon: Ionicons.shield_checkmark,
+              //   bgColor: color12,
+              //   iconColor: color15,
+              //   onTap: () {},
+              // ),
+              // const SizedBox(height: 20),
               SettingItem(
                 title: "About",
                 icon: Icons.info,

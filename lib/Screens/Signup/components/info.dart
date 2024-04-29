@@ -72,6 +72,66 @@ class _InfoPageState extends State<InfoPage> {
       return;
     }
 
+    // Check if email is valid
+    if (!_isValidEmail(_emailController.text)) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Error'),
+          content: Text('Please enter a valid email address.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+
+    // Check if phone number has exactly 10 digits
+    if (_phoneNumberController.text.length != 10) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Error'),
+          content: Text('Phone number should be 10 digits long.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+
+    // Check if PIN has exactly 4 digits
+    if (_pinController.text.length != 4) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Error'),
+          content: Text('PIN should be 4 digits long.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+
     // Update profile data in Firebase Firestore
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
@@ -83,7 +143,7 @@ class _InfoPageState extends State<InfoPage> {
         'Email': _emailController.text,
         'Department': _departmentController.text,
         'Year': _yearController.text,
-        'Pin' : _pinController.text,
+        'Pin': _pinController.text,
       }, SetOptions(merge: true));
     }
 
@@ -93,6 +153,15 @@ class _InfoPageState extends State<InfoPage> {
       MaterialPageRoute(builder: (context) => HomePage()),
     );
   }
+
+
+// Function to validate email format
+  bool _isValidEmail(String email) {
+    String emailRegex =
+        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
+    return RegExp(emailRegex).hasMatch(email);
+  }
+
 
 
   @override

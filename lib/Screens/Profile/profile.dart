@@ -43,22 +43,6 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  Future<void> _saveProfileData() async {
-    // Update profile data in Firebase Firestore
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      FirebaseFirestore firestore = FirebaseFirestore.instance;
-      DocumentReference userDoc = firestore.collection('users').doc(user.uid);
-      await userDoc.set({
-        'Name': _nameController.text,
-        'PhoneNumber': _phoneNumberController.text,
-        'Email': _emailController.text,
-        'Department': _departmentController.text,
-        'Year': _yearController.text,
-      }, SetOptions(merge: true));
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,9 +89,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 ElevatedButton(
                   onPressed: () async {
                     await _saveProfileData();
-                    setState(() {
-                      _isEditing = false;
-                    });
                   },
                   child: Text(
                     'Save Profile',
@@ -130,8 +111,104 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+  Future<void> _saveProfileData() async {
+    try {
+      // Check if any required field is empty
+      if (_nameController.text.isEmpty ||
+          _phoneNumberController.text.isEmpty ||
+          _emailController.text.isEmpty ||
+          _departmentController.text.isEmpty ||
+          _yearController.text.isEmpty) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Error'),
+            content: Text('Please fill in all fields.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          ),
+        );
+        return;
+      }
+
+      // Check if email is valid
+      if (!_isValidEmail(_emailController.text)) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Error'),
+            content: Text('Please enter a valid email address.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          ),
+        );
+        return;
+      }
+
+      // Check if phone number has exactly 10 digits
+      if (_phoneNumberController.text.length != 10) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Error'),
+            content: Text('Phone number should be 10 digits long.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          ),
+        );
+        return;
+      }
+
+      // Update profile data in Firebase Firestore
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        FirebaseFirestore firestore = FirebaseFirestore.instance;
+        DocumentReference userDoc = firestore.collection('users').doc(user.uid);
+        await userDoc.set({
+          'Name': _nameController.text,
+          'PhoneNumber': _phoneNumberController.text,
+          'Email': _emailController.text,
+          'Department': _departmentController.text,
+          'Year': _yearController.text,
+        }, SetOptions(merge: true));
+      }
+
+      // Set isEditing to false if all conditions are met
+      setState(() {
+        _isEditing = false;
+      });
+    } catch (e) {
+      // Add debug logic if needed
+    }
+  }
+
+  // Function to validate email format
+  bool _isValidEmail(String email) {
+    String emailRegex =
+        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
+    return RegExp(emailRegex).hasMatch(email);
+  }
+
   Widget _buildTextField(String label, TextEditingController controller, {required int maxDigits}) {
-    TextInputType keyboardType = TextInputType.text; // Default to text input type
+    TextInputType keyboardType = TextInputType.text;
 
     // Check if the label corresponds to phone number or year, then set keyboardType accordingly
     if (label == 'Phone Number' || label == 'Year') {

@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:unipay/Screens/Home/user_home.dart';
 import 'package:unipay/Screens/Signup/components/info.dart';
 
 import '../../../components/already_have_an_account_acheck.dart';
@@ -20,7 +19,7 @@ class _SignUpFormState extends State<SignUpForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool _isLoading = false;
+  late bool _isLoading;
   String _errorText = "";
 
   @override

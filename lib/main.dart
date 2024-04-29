@@ -4,14 +4,14 @@ import 'package:unipay/Screens/Welcome/welcome_screen.dart';
 import 'package:unipay/components/constants.dart';
 import 'package:unipay/components/firebase_options.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:flutter/services.dart'; // Import this for PlatformException
+import 'package:flutter/services.dart';
 import 'Screens/Home/admin_home.dart';
 import 'Screens/Home/user_home.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 // Global variable to store the user's role
-bool isAdmin = false;
+bool isAdmin = false; 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
