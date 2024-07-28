@@ -9,6 +9,9 @@ UniPay is a versatile virtual payment system designed for events. Built with Flu
 - **User-Friendly Interface**: Simple and intuitive design for easy navigation.
 - **Inventory Management**: Tools for organizers to manage currency and transactions efficiently.
 
+## Try Now (DEMO)
+Android APK:[Download](https://joshuasportfolio.blob.core.windows.net/certificates/app-release.apk?sp=r&st=2024-05-24T18:24:28Z&se=2124-05-25T02:24:28Z&spr=https&sv=2022-11-02&sr=b&sig=KegwuYXIVRJ3MZ6sWhNuXKBe5ncKyh57kb7C3OuLKbo%3D)
+
 ## Screenshots
 
 ![Home Screen](screenshots/home_screen.png)
