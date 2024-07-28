@@ -18,7 +18,7 @@ Android APK: [Download](https://joshuasportfolio.blob.core.windows.net/certifica
 
 ## Screenshots
 
-<img src="images/dashboard.jpg" alt="Home Screen" width="200"/><img src="images/send.jpg" alt="Send Screen" width="200"/><img src="images/recieve.jpg" alt="Recieve Screen" width="200"/><img src="images/transaction.jpg" alt="Transaction Screen" width="200"/><img src="images/settings.jpg" alt="Settings Screen" width="200"/>
+<img src="images/dashboard.jpg" alt="Home Screen" width="200"/>  <img src="images/send.jpg" alt="Send Screen" width="200"/>  <img src="images/recieve.jpg" alt="Recieve Screen" width="200"/>  <img src="images/transaction.jpg" alt="Transaction Screen" width="200"/>  <img src="images/settings.jpg" alt="Settings Screen" width="200"/>
 
 ## Installation
 
