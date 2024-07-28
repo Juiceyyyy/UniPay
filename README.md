@@ -47,39 +47,39 @@ Then, run:
 
 ### For Organizers
 
-**Set Up Event Currency:**
+- **Set Up Event Currency:**
 Configure the event-specific currency through the admin panel.
 
-**Manage Transactions:**
+- **Manage Transactions:**
 Use the dashboard to track and manage all transactions during the event.
 
 ### For Attendees
 
-**Create an Account:**
+- **Create an Account:**
 Sign up using your email or social media accounts.
 
-**Add Funds:**
+- **Add Funds:**
 Load your virtual wallet with the event currency. 
 
-**Make Payments:**
+- **Make Payments:**
 Scan QR codes and use biometric authentication to make secure payments.
 
 ## Technology Stack
 
-**Frontend:** Flutter
-**Backend:** Firebase (Firestore, Authentication, Functions)
-**Authentication:** Firebase Authentication
-**Payments:** Custom integration for payments
+ **Frontend:** Flutter
+ **Backend:** Firebase (Firestore, Authentication, Functions)
+- **Authentication:** Firebase Authentication
+- **Payments:** Custom integration for payments
 
 ## Contributing
 We welcome contributions to enhance UniPay. 
 
 **To contribute:**
--Fork the repository.
--Create a new branch (git checkout -b feature/your-feature).
--Make your changes and commit them (git commit -m 'Add some feature').
--Push to the branch (git push origin feature/your-feature).
--Open a Pull Request.
+- Fork the repository.
+- Create a new branch (git checkout -b feature/your-feature).
+- Make your changes and commit them (git commit -m 'Add some feature').
+- Push to the branch (git push origin feature/your-feature).
+- Open a Pull Request.
 
 ## Contact:
 For any questions or feedback, please reach out to:
