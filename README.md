@@ -1,3 +1,5 @@
+![Poster](images/poster.jpg)
+
 # UniPay
 
 UniPay is an innovative virtual payment system designed specifically for events. Leveraging Flutter for the frontend and Firebase for the backend, UniPay allows event organizers to create and manage custom currencies tailored to their specific needs. Attendees can make secure transactions using QR code scanning and biometric authentication. The platform offers a user-friendly interface and robust tools for efficient currency and transaction management, enhancing the overall event experience for both organizers and attendees.
@@ -17,7 +19,10 @@ Android APK: [Download](https://joshuasportfolio.blob.core.windows.net/certifica
 ## Screenshots
 
 ![Home Screen](images/dashboard.jpg)
-![Transaction Screen](images/transaction.png)
+![Send_Screen](images/send.jpg)
+![Recieve Screen](images/recieve.jpg)
+![Transaction Screen](images/transaction.jpg)
+![Settings Screen](images/settings.jpg)
 
 ## Installation
 
