@@ -18,6 +18,8 @@ Android APK: [Download](https://joshuasportfolio.blob.core.windows.net/certifica
 
 ## Screenshots
 
+<img src="images/dashboard.jpg" alt="Home Screen" width="100"/>
+<img src="images/transaction.jpg" alt="Transaction Screen" width="100"/>
 ![Home Screen](images/dashboard.jpg)
 ![Send_Screen](images/send.jpg)
 ![Recieve Screen](images/recieve.jpg)
