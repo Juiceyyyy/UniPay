@@ -40,7 +40,7 @@ Then, run:
 
 ## Usage
 
-## For Organizers
+### For Organizers
 
 **Set Up Event Currency:**
 Configure the event-specific currency through the admin panel.
@@ -48,7 +48,7 @@ Configure the event-specific currency through the admin panel.
 **Manage Transactions:**
 Use the dashboard to track and manage all transactions during the event.
 
-## For Attendees
+### For Attendees
 
 **Create an Account:**
 Sign up using your email or social media accounts.
@@ -78,5 +78,6 @@ We welcome contributions to enhance UniPay.
 
 ## Contact:
 For any questions or feedback, please reach out to:
-GitHub: [Juiceyyy]((https://github.com/Juiceyyyy))
+
+GitHub: [Juiceyyy](https://github.com/Juiceyyyy)
 LinkedIn: [joshuamenezes-](https://www.linkedin.com/in/joshuamenezes-/)
