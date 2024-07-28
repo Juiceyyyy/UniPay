@@ -16,8 +16,8 @@ Android APK: [Download](https://joshuasportfolio.blob.core.windows.net/certifica
 
 ## Screenshots
 
-![Home Screen](screenshots/home_screen.png)
-![Transaction Screen](screenshots/transaction_screen.png)
+![Home Screen](images/dashboard.jpg)
+![Transaction Screen](images/transaction.png)
 
 ## Installation
 
