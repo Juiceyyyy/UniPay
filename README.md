@@ -2,7 +2,7 @@
     <img src="images/Poster.jpg" alt="Poster" width="650"/>
 </div>
 
-# UniPay
+# UniPay: A Virtual Payment System
 
 UniPay is an innovative virtual payment system designed specifically for events. Leveraging Flutter for the frontend and Firebase for the backend, UniPay allows event organizers to create and manage custom currencies tailored to their specific needs. Attendees can make secure transactions using QR code scanning and biometric authentication. The platform offers a user-friendly interface and robust tools for efficient currency and transaction management, enhancing the overall event experience for both organizers and attendees.
 
