@@ -66,8 +66,8 @@ Scan QR codes and use biometric authentication to make secure payments.
 
 ## Technology Stack
 
- **Frontend:** Flutter
- **Backend:** Firebase (Firestore, Authentication, Functions)
+- **Frontend:** Flutter
+- **Backend:** Firebase (Firestore, Authentication, Functions)
 - **Authentication:** Firebase Authentication
 - **Payments:** Custom integration for payments
 
