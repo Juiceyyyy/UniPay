@@ -1,4 +1,4 @@
-![Poster](images/poster.jpg)
+![Poster](images/Poster.jpg)
 
 # UniPay
 
