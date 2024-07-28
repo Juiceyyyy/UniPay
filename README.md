@@ -38,9 +38,9 @@ Then, run:
    flutter run
    ```
 
-##Usage
+## Usage
 
-###For Organizers
+## For Organizers
 
 **Set Up Event Currency:**
 Configure the event-specific currency through the admin panel.
@@ -48,7 +48,7 @@ Configure the event-specific currency through the admin panel.
 **Manage Transactions:**
 Use the dashboard to track and manage all transactions during the event.
 
-For Attendees
+## For Attendees
 
 **Create an Account:**
 Sign up using your email or social media accounts.
@@ -59,14 +59,14 @@ Load your virtual wallet with the event currency.
 **Make Payments:**
 Scan QR codes and use biometric authentication to make secure payments.
 
-##Technology Stack
+## Technology Stack
 
 **Frontend:** Flutter
 **Backend:** Firebase (Firestore, Authentication, Functions)
 **Authentication:** Firebase Authentication
 **Payments:** Custom integration with payment gateways
 
-##Contributing
+## Contributing
 We welcome contributions to enhance UniPay. 
 
 **To contribute:**
@@ -76,8 +76,7 @@ We welcome contributions to enhance UniPay.
 -Push to the branch (git push origin feature/your-feature).
 -Open a Pull Request.
 
-##Contact:
+## Contact:
 For any questions or feedback, please reach out to:
-
 GitHub: [Juiceyyy]((https://github.com/Juiceyyyy))
 LinkedIn: [joshuamenezes-](https://www.linkedin.com/in/joshuamenezes-/)
