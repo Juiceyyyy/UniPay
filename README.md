@@ -1,4 +1,6 @@
-<img src="images/Poster.jpg" alt="Poster" width="500"/>
+<div align="center">
+    <img src="images/Poster.jpg" alt="Poster" width="650"/>
+</div>
 
 # UniPay
 
