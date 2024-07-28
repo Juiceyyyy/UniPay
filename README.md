@@ -22,19 +22,21 @@ To get started with UniPay, follow these steps:
    ```bash
    git clone https://github.com/yourusername/unipay.git
    cd unipay
-Install Dependencies:
-Ensure you have Flutter installed. Then, run:
+   
+2. **Install Dependencies**:
+Ensure you have Flutter installed.
+Then, run:
 
-bash
+```bash
+   flutter pub get
 
-flutter pub get
-Run the App:
+3. **Run the App**:
 
-bash
+```bash
 
 flutter run
 
-#Usage
+##Usage
 
 For Organizers
 
