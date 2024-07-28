@@ -22,64 +22,62 @@ To get started with UniPay, follow these steps:
    ```bash
    git clone https://github.com/yourusername/unipay.git
    cd unipay
+   ```
    
 2. **Install Dependencies**:
-   
 Ensure you have Flutter installed.
-
 Then, run:
 
-```bash
+   ```bash
    flutter pub get
-```
+   ```
 
 3. **Run the App**:
 
-```bash
-flutter run
-```
+   ```bash
+   flutter run
+   ```
 
 ##Usage
 
-For Organizers
+###For Organizers
 
-Set Up Event Currency:
+**Set Up Event Currency:**
 Configure the event-specific currency through the admin panel.
 
-Manage Transactions:
+**Manage Transactions:**
 Use the dashboard to track and manage all transactions during the event.
 
 For Attendees
 
-Create an Account:
+**Create an Account:**
 Sign up using your email or social media accounts.
 
-Add Funds:
+**Add Funds:**
 Load your virtual wallet with the event currency.
 
-Make Payments:
+**Make Payments:**
 Scan QR codes and use biometric authentication to make secure payments.
 
-#Technology Stack
+##Technology Stack
 
-Frontend: Flutter
-Backend: Firebase (Firestore, Authentication, Functions)
-Authentication: Firebase Authentication
-Payments: Custom integration with payment gateways
+**Frontend:** Flutter
+**Backend:** Firebase (Firestore, Authentication, Functions)
+**Authentication:** Firebase Authentication
+**Payments:** Custom integration with payment gateways
 
-#Contributing
+##Contributing
 We welcome contributions to enhance UniPay. 
 
-To contribute:
+**To contribute:**
 -Fork the repository.
 -Create a new branch (git checkout -b feature/your-feature).
 -Make your changes and commit them (git commit -m 'Add some feature').
 -Push to the branch (git push origin feature/your-feature).
 -Open a Pull Request.
 
-Contact
+##Contact:
 For any questions or feedback, please reach out to:
 
-Email: yourname@example.com
-GitHub: yourusername
-LinkedIn: Your LinkedIn
+GitHub: [Juiceyyy]((https://github.com/Juiceyyyy))
+LinkedIn: [joshuamenezes-](https://www.linkedin.com/in/joshuamenezes-/)
