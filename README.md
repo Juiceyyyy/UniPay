@@ -24,17 +24,20 @@ To get started with UniPay, follow these steps:
    cd unipay
    
 2. **Install Dependencies**:
+   
 Ensure you have Flutter installed.
+
 Then, run:
 
 ```bash
    flutter pub get
+```
 
 3. **Run the App**:
 
 ```bash
-
 flutter run
+```
 
 ##Usage
 
