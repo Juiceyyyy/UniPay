@@ -1,4 +1,4 @@
-![Poster](images/Poster.jpg)
+<img src="images/Poster.jpg" alt="Poster" width="300"/>
 
 # UniPay
 
