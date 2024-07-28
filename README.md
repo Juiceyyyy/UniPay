@@ -1,6 +1,6 @@
 # UniPay
 
-UniPay is a versatile virtual payment system designed for events. Built with Flutter and Firebase, UniPay allows organizers to configure new currencies easily and enables attendees to make secure transactions using QR scanning and biometric authentication.
+UniPay is an innovative virtual payment system designed specifically for events. Leveraging Flutter for the frontend and Firebase for the backend, UniPay allows event organizers to create and manage custom currencies tailored to their specific needs. Attendees can make secure transactions using QR code scanning and biometric authentication. The platform offers a user-friendly interface and robust tools for efficient currency and transaction management, enhancing the overall event experience for both organizers and attendees.
 
 ## Features
 
@@ -8,9 +8,11 @@ UniPay is a versatile virtual payment system designed for events. Built with Flu
 - **Secure Transactions**: QR code scanning and biometric authentication.
 - **User-Friendly Interface**: Simple and intuitive design for easy navigation.
 - **Inventory Management**: Tools for organizers to manage currency and transactions efficiently.
+- **QR Scanning**: Scan or generate QR codes to send or recieve currency.
+- **Biometric Authentication**: Use device biometric authentication to unlock the app.
 
 ## Try Now (DEMO)
-Android APK:[Download](https://joshuasportfolio.blob.core.windows.net/certificates/app-release.apk?sp=r&st=2024-05-24T18:24:28Z&se=2124-05-25T02:24:28Z&spr=https&sv=2022-11-02&sr=b&sig=KegwuYXIVRJ3MZ6sWhNuXKBe5ncKyh57kb7C3OuLKbo%3D)
+Android APK: [Download](https://joshuasportfolio.blob.core.windows.net/certificates/app-release.apk?sp=r&st=2024-05-24T18:24:28Z&se=2124-05-25T02:24:28Z&spr=https&sv=2022-11-02&sr=b&sig=KegwuYXIVRJ3MZ6sWhNuXKBe5ncKyh57kb7C3OuLKbo%3D)
 
 ## Screenshots
 
@@ -57,7 +59,7 @@ Use the dashboard to track and manage all transactions during the event.
 Sign up using your email or social media accounts.
 
 **Add Funds:**
-Load your virtual wallet with the event currency.
+Load your virtual wallet with the event currency. 
 
 **Make Payments:**
 Scan QR codes and use biometric authentication to make secure payments.
@@ -67,7 +69,7 @@ Scan QR codes and use biometric authentication to make secure payments.
 **Frontend:** Flutter
 **Backend:** Firebase (Firestore, Authentication, Functions)
 **Authentication:** Firebase Authentication
-**Payments:** Custom integration with payment gateways
+**Payments:** Custom integration for payments
 
 ## Contributing
 We welcome contributions to enhance UniPay. 
