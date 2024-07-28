@@ -84,6 +84,7 @@ We welcome contributions to enhance UniPay.
 ## Contact:
 For any questions or feedback, please reach out to:
 
-GitHub: [Juiceyyy](https://github.com/Juiceyyyy)
+- **GitHub:** [Juiceyyy](https://github.com/Juiceyyyy)
+- **LinkedIn:** [joshuamenezes-](https://www.linkedin.com/in/joshuamenezes-/)
 
-LinkedIn: [joshuamenezes-](https://www.linkedin.com/in/joshuamenezes-/)
+
