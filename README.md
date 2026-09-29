@@ -16,7 +16,7 @@ UniPay is an innovative virtual payment system designed specifically for events.
 - **Biometric Authentication**: Use device biometric authentication to unlock the app.
 
 ## Try Now (DEMO)
-Android APK: [Download](https://joshuasportfolio.blob.core.windows.net/certificates/app-release.apk?sp=r&st=2024-05-24T18:24:28Z&se=2124-05-25T02:24:28Z&spr=https&sv=2022-11-02&sr=b&sig=KegwuYXIVRJ3MZ6sWhNuXKBe5ncKyh57kb7C3OuLKbo%3D)
+Android APK download is not currently available. Build the app locally using the instructions below.
 
 ## Screenshots
 
