@@ -28,8 +28,8 @@ To get started with UniPay, follow these steps:
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/yourusername/unipay.git
-   cd unipay
+   git clone https://github.com/Juiceyyyy/UniPay.git
+   cd UniPay
    ```
    
 2. **Install Dependencies**:
@@ -87,7 +87,7 @@ We welcome contributions to enhance UniPay.
 ## Contact:
 For any questions or feedback, please reach out to:
 
-- **GitHub:** [Juiceyyy](https://github.com/Juiceyyyy)
+- **GitHub:** [Juiceyyyy](https://github.com/Juiceyyyy)
 - **LinkedIn:** [joshuamenezes-](https://www.linkedin.com/in/joshuamenezes-/)
 
 
